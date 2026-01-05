@@ -24,4 +24,8 @@ yarn-error.log*
 dist/
 .cache/
 EOF
+<<<<<<< HEAD
 .codegpt
+=======
+.codegpt
+>>>>>>> 376717065261aed9e2af04f190e91bc50c56cc5d
