@@ -1,0 +1,10 @@
+.filtered {
+    border-radius: 50px 25px 35px 1px;
+}
+
+
+#filters, #section-actas {
+    max-height: 0;
+    overflow: hidden; /* Asegúrate de ocultar el contenido cuando está colapsado */
+    transition: max-height 1s ease; /* Asegúrate de que la transición esté aquí */
+}

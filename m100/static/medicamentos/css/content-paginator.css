@@ -1,0 +1,6 @@
+#content-paginator {
+    background: black;
+    position: absolute; /* Permite moverlo por la pantalla */
+    cursor: grab; /* Cambia el cursor al pasar por encima */
+    z-index: 1000;
+}

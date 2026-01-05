@@ -1,0 +1,6 @@
+.buttons-pagination:hover {
+    text-shadow: rgba(0, 0, 0, 0.616) 1px 1px 3px;
+    color: #ff7c00;
+    transform: scale(1.2);
+    transition: transform 0.8s ease-in-out text-shadow 1.2s ease-in-out color 1.5s ease-in-out;
+}

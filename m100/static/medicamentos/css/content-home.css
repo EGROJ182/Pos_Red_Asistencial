@@ -1,0 +1,79 @@
+/* .content-page { */
+    /* background-image: url('../../resources/pfHalloween.webp'); */
+    /* background-image: url('../../resources/grinch6.gif'); */
+    /* background-size: 350px, 350px; Hace que la imagen cubra todo el contenedor */
+    /* background-size: 400px, 400px; Hace que la imagen cubra todo el contenedor */
+    /* background-repeat: no-repeat; Evita que la imagen se repita */
+    /* background-position: center; */
+/* } */
+
+.content-status {
+    /* background-image: url('../../resources/calabaza.gif'); */
+    /* background-image: url('../../resources/grinch5.gif'); */
+    background-size: 400px 400px; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: 85%;
+}
+
+.content-noticias {
+    /* background-image: url('../../resources/2.gif'); */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.content-carusell {
+    background-image: url('../../resources/construccion2.png');
+    background-size: 260px 120px;
+    background-repeat: no-repeat;
+    background-position: center 100%;
+}
+
+.content-foro {
+    /* background-image: url('../../resources/grinch5.gif'); */
+    background-size: cover; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;
+}
+
+.content-navidad {
+    background-image: url('../../resources/decoracion4.png');
+    /* background-image: url('../../resources/draco.gif'); */
+    background-size: 550px 270px; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* background-position: 260px -10px; */
+    background-position: 40px -10px;
+}
+
+.content-alertNavidad {
+    background-image: url('../../resources/decoracion.png');
+    /* background-image: url('../../resources/draco.gif'); */
+    background-size: 450px 210px; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    /* background-position: 260px -10px; */
+    background-position: 0 -10px;
+}
+
+.banner-header {
+    background-image: url('../../resources/decoracion 5.png');
+    /* background-image: url('../../resources/cat.png'); */
+    /* background-size: 170px 120px; Hace que la imagen cubra todo el contenedor */
+    background-size: 300px 300px; /* Hace que la imagen cubra todo el contenedor
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: 15%;
+}
+
+.banner-footer {
+    background-image: url('../../resources/cat.png');
+    background-size: 170px 120px; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: 20%;
+}
+
+.content-bar {
+    /* background-image: url('../../resources/calabaza.gif'); */
+    /* background-image: url('../../resources/2025.gif'); */
+    background-size: 130px 90px; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;
+}

@@ -1,0 +1,258 @@
+{% extends 'home.html' %}
+
+{% block title %}Histórico Medicamentos{% endblock %}
+
+{% block content %}
+    <!-- Contenedor Filtros -->
+    <section id="filters" class="content-filter-med w-full py-20 bg-gray-100">
+        <div class="filtered container mx-auto px-4 shadow-lg py-4">
+            <form method="GET" action="{% url 'moleculas' %}">
+          <!-- Aquí van los filtros -->
+            <div class="flex flex-wrap justify-between space-x-4">
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="text" name="cum" id="cum" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="cum" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">CUM</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="expediente" id="expediente" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="expediente" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Expediente</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="text" name="principio_activo" id="principio_activo" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="principio_activo" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Principio Activo</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="text" name="concentracion" id="concentracion" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="concentracion" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Concentración</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="nit_proveedor" id="nit" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="nit" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">NIT</label>
+                </div>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="forma_farmaceutica" class="block text-sm font-medium text-gray-700">Froma Farmacéutica</label>
+                <select id="forma_farmaceutica" name="forma_farmaceutica" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for forma in formas_farmaceuticas.all %}
+                            <option value="{{ forma }}">{{ forma }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="alianza" class="block text-sm font-medium text-gray-700">Alianza</label>
+                <select name="alianza" id="alianza" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for alianza in alianza.all %}
+                            <option value="{{ alianza }}">{{ alianza }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="canal" class="block text-sm font-medium text-gray-700">Canal</label>
+                <select name="canal" id="canal" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for canal in canal.all %}
+                            <option value="{{ canal }}">{{ canal }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="regulado" class="block text-sm font-medium text-gray-700">Regulado</label>
+                <select name="valor_medicamento_regulado" id="regulado" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                    <option value="no">No</option>
+                    <option value="si">Si</option>
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="control_especial" class="block text-sm font-medium text-gray-700">Control Especial</label>
+                <select name="medicamentos_de_control_especial" id="control_especial" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for control in control_especial.all %}
+                            <option value="{{ control }}">{{ control }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="monopolio" class="block text-sm font-medium text-gray-700">Monopolio</label>
+                <select name="medicamentos_monopolio_del_estado" id="monopolio" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for monopolio in monopolio.all %}
+                            <option value="{{ monopolio }}">{{ monopolio }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="acta" class="block text-sm font-medium text-gray-700">Acta o Estandar</label>
+                <select name="numero_acta_inicial" id="acta" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for acta in acta.all %}
+                            <option value="{{ acta }}">{{ acta }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="acta" class="block text-sm font-medium text-gray-700">Proveedor</label>
+                <select name="nombre_del_proveedor_pactado" id="acta" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for proveedor in proveedores.all %}
+                            <option value="{{ proveedor }}">{{ proveedor }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="tipo" class="block text-sm font-medium text-gray-700">Tipo</label>
+                <select name="tipo" id="tipo" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for tipo in tipos.all %}
+                            <option value="{{ tipo }}">{{ tipo }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="novedad" class="block text-sm font-medium text-[red]">Novedades (Julieta aca puedes ver los Hallazgos)</label>
+                <select name="novedad" id="novedad" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for novedad in novedades.all %}
+                            <option value="{{ novedad }}">{{ novedad }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Btn buscar !-->
+            <button type="submit" class="button-48" role="button"><span class="text">Buscar</span></button>
+        </form>
+        </div>
+    </section>
+    <!-- Contenedor Información -->
+    <section id="info-buttons" class="content-info w-full lg:w-3/10 py-4 bg-[#e5e8e8] shadow-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">        
+            <div class="flex-1">
+                <!-- Aquí van los labels de span y botones -->
+                <p>Registros encontrados <span>{{ medicamentos.paginator.count }}</span></p>
+                <p>Filtros Aplicados : 
+                    <span>
+                        {% if filtros_aplicados %}
+                        {{ filtros_aplicados|join:", " }}
+                        {% else %}
+                        Ningún filtro aplicado
+                        {% endif %}
+                    </span>
+                </p>
+                <p>Pagina <span>{{ medicamentos.number }}</span> de <span>{{ medicamentos.paginator.num_pages }}</span></p>
+            </div>
+            <div class="ml-4">
+                <button id="toggle-filters" class="button-49" role="button">Ver Filtros</button>
+            </div>
+        </div>
+    </section>
+    <!-- Contenedor Tabla -->
+    <section id="table-pagination" class="content-table-med w-full lg:w-7/10 py-4 shadow-xl">
+        <div class="flex text-center justify-between mt-4 w-[20%]">
+            <div class="justify-end">
+                {% if medicamentos.has_previous %}
+                    <a href="?page=1{% if request.GET %}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-blue-500 font-semibold">Primera</a>
+                    <a href="?page={{ medicamentos.previous_page_number }}{% if request.GET %}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-blue-500 font-semibold">Anterior</a>
+                {% endif %}
+            </div>
+            <div class="justify-end">
+                {% if medicamentos.has_next %}
+                    <a href="?page={{ medicamentos.next_page_number }}{% if request.GET %}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-blue-500 font-semibold">Siguiente</a>
+                    <a href="?page={{ medicamentos.paginator.num_pages }}{% if request.GET %}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}{% endif %}" class="text-blue-500 font-semibold">Última</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="container mx-auto px-4 shadow-lg">
+            <!-- Aquí va la tabla y paginación -->
+            <!-- Título -->
+            <h1 class="text-3xl font-bold text-center my-6">Histórico de Medicamentos</h1>
+            <!-- Tabla -->
+            <div class="overflow-x-auto h-[70vh]">
+                <table class="table-auto border-collapse border border-gray-300">
+                    <thead class="text-white font-bold text-sm text-center">
+                        <tr>
+                            <th class="sticky top-0 left-0 px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">Item</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Tipo</th>
+                            <th class="sticky top-0 left-20 px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">Descripción del Medicamento</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Marca</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Principio Activo</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Concentración</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Forma Farmacéutica</th>
+                            <th class="sticky top-0 left-[260.5px] px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">CUM</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Presentación Comercial</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Registro Sanitario</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Estado del Registro</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">ATC</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Expediente</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Consecutivo</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Codigo CUM Homologo</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Alianza</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Laboratorio Alianza</th>
+                            <th class="sticky top-0 left-[359.5px] px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">Canal</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Cantidad Minima de Dispensación</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Variable Cantidad Unidad Minima Negociada</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Valor Medicamento Regulado</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Tarifa Pactada por Unidad sin IVA</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Medicamento de Control Especial</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Medicamento Monopolio del Estado</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">NIT del Proveedor</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Razón Social del Proveedor Pactado</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Número del Acta / Inicial</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Fecha Pactada</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Validador Acta Duplicada</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Circular Valor Regulado</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Precio Maximo Final Institucional</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Precio Maximo Final Comercial</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Estado del Invima</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Validador Precio Mismo Canal</th>
+                            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Precio Regulado Institucional 2022</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for medicamento in medicamentos %}
+                        <tr class="bg-white border-b">
+                            <td class="sticky left-0 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ forloop.counter }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.tipo }}</td>
+                            <td class="sticky left-20 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ medicamento.descripcion_medicamento }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.marca }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.principio_activo }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.concentracion }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.forma_farmaceutica }}</td>
+                            <td class="sticky left-[260.5px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ medicamento.cum }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.presentacion }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.registro_sanitario }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.estado_registro }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.atc }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.expediente }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.consecutivo }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.codigo_cum_homologo }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.alianza }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.laboratorio }}</td>
+                            <td class="sticky left-[359.5px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ medicamento.canal }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.cantidad_minima_de_dispensacion }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.variable_cantidad_unidad_minima_negociada }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.valor_medicamento_regulado }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.tarifa_pactada_por_unidad_sin_iva }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.medicamentos_de_control_especial }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.medicamentos_monopolio_del_estado }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.nit_proveedor }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.nombre_del_proveedor_pactado }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.numero_acta_inicial }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.fecha_pactada }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.validador_acta_duplicada }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.circular_valor_regulado }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.precio_maximo_final_institucional }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.precio_maximo_final_comercial }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.status_invima }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.validador_precio_mismo_canal }}</td>
+                            <td class="px-4 py-2 border border-gray-300">{{ medicamento.precio_regulado_institucional_2022 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

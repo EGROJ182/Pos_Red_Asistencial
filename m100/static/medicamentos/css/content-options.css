@@ -1,0 +1,44 @@
+.content-options {
+    border-radius: 20px 20px 0px 0px;
+    background: #ff7c00;
+    position: absolute;
+    height: 88px;
+    width: 400px;
+    top: 205px;
+    left: 80px;
+}
+
+@media (max-width: 768px) {
+    .content-options {
+        position: absolute;
+        width: 310px;
+        height: 80px;
+        top: 148px;
+        left: 2px;
+        border-radius: 15px 15px 0px 30px;
+    }
+}
+
+@media (max-width: 1688px) and (min-width: 1400px) {
+    .content-options {
+        border-radius: 20px 20px 0px 0px;
+        background: #ff7c00;
+        position: relative;
+        height: 88px;
+        width: 400px;
+        top: 143px;
+        left: 100px;
+    }
+}
+
+@media (max-width: 2800px) and (min-width: 1689px) {
+    .content-options {
+        border-radius: 20px 20px 0px 0px;
+        background: #ff7c00;
+        position: relative;
+        height: 50px;
+        width: 400px;
+        top: 3px;
+        left: 10px;
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "m100",
+            "type": "shell",
+            "command": "python",
+            "args": ["m100/manage.py", "runserver"],
+            "runOn": "folderOpen"
+        },
+        {
+            "type": "npm",
+            "script": "run build",
+            "runOn": "folderOpen"
+        }
+    ]
+}

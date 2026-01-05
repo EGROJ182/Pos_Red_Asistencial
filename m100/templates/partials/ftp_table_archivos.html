@@ -1,0 +1,111 @@
+<div class="container mx-auto overflow-auto p-6 h-[70vh] w-[100%]">
+    <div class="sticky top-0 mb-4 px-4 py-3 text-center font-semibold bg-[#57af778a] text-white rounded-lg shadow-md z-10">
+    <!-- <div class="sticky top-0 mb-4 px-4 py-3 text-center font-semibold bg-green-600 text-white rounded-lg shadow-md z-10"> -->
+        <p class="text-lg">📄 Archivos en la Carpeta Actual</p>
+        <p class="text-sm opacity-90">Ruta: {{ ruta_actual|default:"/" }}</p>
+    </div>
+    
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">
+            Archivos ({{ archivos.paginator.count }})
+        </h2>
+        
+        {% if archivos %}
+        <div class="space-y-2">
+            {% for archivo in archivos %}
+            <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded border border-gray-200 transition">
+                <div class="flex items-center flex-1">
+                    <span class="text-gray-500 mr-3 font-mono text-sm">{{ forloop.counter|stringformat:"03d" }}</span>
+                    
+                    <!-- Icono según extensión -->
+                    {% if archivo.extension == ".pdf" %}
+                    <svg class="w-5 h-5 text-red-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif archivo.extension == ".xlsx" or archivo.extension == ".xls" %}
+                    <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif archivo.extension == ".zip" or archivo.extension == ".rar" or archivo.extension == ".7z" %}
+                    <svg class="w-5 h-5 text-purple-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif archivo.extension == ".doc" or archivo.extension == ".docx" %}
+                    <svg class="w-5 h-5 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif archivo.extension == ".txt" or archivo.extension == ".csv" %}
+                    <svg class="w-5 h-5 text-gray-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% elif archivo.extension == ".jpg" or archivo.extension == ".jpeg" or archivo.extension == ".png" or archivo.extension == ".gif" %}
+                    <svg class="w-5 h-5 text-pink-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd"/>
+                    </svg>
+                    {% else %}
+                    <svg class="w-5 h-5 text-gray-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                    </svg>
+                    {% endif %}
+                    
+                    <div class="flex-1">
+                        <p class="font-medium text-gray-800">{{ archivo.name }}</p>
+                        <p class="flex justify-end items-center text-gray-500 text-[10px] p-0 m-0 leading-none">
+                            {{ archivo.size|filesizeformat }} • {{ archivo.extension|upper|default:"Sin extensión" }} • {{ archivo.modified|date:"d/m/Y H:i" }}
+                        </p>
+                    </div>
+                </div>
+                
+                <a href="{% url 'mft_download' archivo.name %}?path={{ ruta_actual }}" 
+                   class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition text-sm font-semibold whitespace-nowrap ml-4">
+                    ⬇ Descargar
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Paginación de archivos -->
+        {% if archivos.has_other_pages %}
+        <div class="mt-4 flex justify-center">
+            <nav class="inline-flex space-x-2">
+                {% if archivos.has_previous %}
+                <a href="?path={{ ruta_actual }}&page={{ archivos.previous_page_number }}"
+                   class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    ← Anterior
+                </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 bg-green-100 text-green-800 rounded-lg">
+                    Página {{ archivos.number }} de {{ archivos.paginator.num_pages }}
+                </span>
+                
+                {% if archivos.has_next %}
+                <a href="?path={{ ruta_actual }}&page={{ archivos.next_page_number }}"
+                   class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    Siguiente →
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+        {% else %}
+        <div class="text-center py-8">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            <p class="text-gray-500">No hay archivos en esta ubicación</p>
+            <p class="text-sm text-gray-400 mt-2">Navega a una carpeta para ver sus archivos</p>
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Información adicional -->
+    {% if archivos %}
+    <div class="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3">
+        <p class="text-sm text-blue-800">
+            <strong>💡 Tip:</strong> Haz clic en "Descargar" para obtener archivos individuales. 
+            Las carpetas se descargarán automáticamente como archivos ZIP.
+        </p>
+    </div>
+    {% endif %}
+</div>

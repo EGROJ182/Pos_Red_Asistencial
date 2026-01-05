@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" sizes="180x180" href='https://images.emojiterra.com/google/noto-emoji/animated-emoji/1f640.gif' />
+  <title>Animación Arigato</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: left;
+      transition: background-image 0.5s ease;
+    }
+
+    .typing {
+      font-family: 'Courier New', monospace;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      font-weight: 600;
+      color: #683f56;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #d16ba5;
+      width: 0;
+      display: inline-block;
+      text-shadow: #e26eb0de 1px 2px 3px;
+      max-width: 100%;
+    }
+
+    .container {
+      text-align: center;
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      z-index: 2;
+    }
+
+    .spotify-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: none;
+    }
+
+    .spotify-frame {
+      border-radius: 12px;
+      border: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .spotify-frame:hover {
+      transform: scale(1.05);
+    }
+    
+    @keyframes typing {
+      from { width: 0 }
+      to { width: var(--width, 19ch) }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    /* Tablets y pantallas medianas */
+    @media screen and (max-width: 768px) {
+      body {
+        padding: 15px;
+        background-size: cover;
+      }
+
+      .typing {
+        font-size: clamp(0.9rem, 5vw, 1.3rem);
+        border-right-width: 2px;
+      }
+
+      .spotify-frame {
+        width: 280px;
+        height: 80px;
+      }
+
+      .spotify-container {
+        bottom: 15px;
+      }
+    }
+
+    /* Móviles */
+    @media screen and (max-width: 480px) {
+      body {
+        padding: 10px;
+        background-size: 70%;
+        background-repeat: no-repeat;
+        background-position: left 25%;
+      }
+
+      .typing {
+        font-size: clamp(0.8rem, 6vw, 1.2rem);
+        border-right-width: 2px;
+        text-shadow: #e26eb0de 1px 1px 2px;
+      }
+
+      .container {
+        max-width: 100%;
+      }
+
+      .spotify-frame {
+        width: 250px;
+        height: 70px;
+      }
+
+      .spotify-container {
+        bottom: 10px;
+      }
+    }
+
+    /* Pantallas muy pequeñas */
+    @media screen and (max-width: 320px) {
+      .typing {
+        font-size: clamp(0.7rem, 7vw, 1rem);
+      }
+
+      .spotify-frame {
+        width: 220px;
+        height: 65px;
+      }
+    }
+
+    /* Pantallas en orientación horizontal */
+    @media screen and (max-height: 500px) and (orientation: landscape) {
+      body {
+        padding: 5px;
+      }
+
+      .spotify-container {
+        bottom: 5px;
+      }
+
+      .spotify-frame {
+        width: 200px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="typing" id="typingText"></p>
+  </div>
+  <!-- <iframe class="spotify-frame" id="spotify"
+    src="https://open.spotify.com/embed/track/7KVo72w50dRv8asqkCUIy5?utm_source=generator" 
+    width="300" height="80" frameBorder="0" allowfullscreen="" 
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+    loading="lazy">
+  </iframe> -->
+
+  <div class="spotify-container" id="spotifyContainer">
+    <iframe class="spotify-frame" id="spotify"
+      src="https://open.spotify.com/embed/track/31erLsev1TFdedwN0ZY0QV?utm_source=generator"
+      width="300" height="80" frameBorder="0" allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <script>
+    const typingElement = document.getElementById('typingText');
+    const spotifyContainer = document.getElementById('spotifyContainer');
+
+    // Aplica animación inicial
+    typingElement.style.setProperty('--width', '19ch');
+    typingElement.style.animation = 'typing 3s steps(20, end) forwards, blink 0.7s infinite';
+
+    const messages = [
+      'Cargando Chismes...',
+      'Hola, pequeña 🙀',
+      '...',
+      '🤔',
+      '¿Qué tal?',
+      'Espero que estés bien',
+      'Solo quería decirte una cosa',
+      'Yeimy no vuelve',
+      '🎉',
+      '😹',
+      'No, mentiras',
+      '😿',
+      'En verdad no vuelve',
+      'Pero lo que quiero decirte...',
+      '😁',
+      '1',
+      '2',
+      '3',
+      '                 ',
+      '😂',
+      'Cristian va a renunciar',
+      'Otro que se nos va',
+      'Está aburrido el pobre',
+      '🤣',
+      'Bueno ya 😹',
+      'Ahora sí, en serio...',
+      '🔈🔉🔊',
+      '🥳 ¡Feliz cumpleaños, pequeña fea! 🥳',
+      'Que Dios te bendiga,',
+      'te proteja hoy y siempre...',
+      '🥳  🎂  🥂',
+      'Espero que no solo hoy,',
+      'sino cada momento,',
+      'sea lleno de mucha felicidad,',
+      'mucho amor y muchos éxitos.',
+      'Comparte con tus seres amados,',
+      'disfruta cada segundo,',
+      'se te quiere muchísimo.',
+      'Cuídate, enana.',
+      ''
+    ];
+
+    // Función para calcular el ancho del texto de manera más precisa
+    function calculateTextWidth(text) {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('2d');
+      const computedStyle = window.getComputedStyle(typingElement);
+      context.font = `${computedStyle.fontSize} ${computedStyle.fontFamily}`;
+      const metrics = context.measureText(text);
+      return Math.ceil(metrics.width) + 'px';
+    }
+
+    // Función auxiliar async para contar del 3 al 1000
+    async function contarHasta1000() {
+      for (let n = 4; n <= 1000; n++) {
+        typingElement.textContent = n;
+        await new Promise(resolve => setTimeout(resolve, 1)); // pequeño delay para ver el cambio
+      }
+    }
+
+    for (let i = 0; i < messages.length; i++) {
+      setTimeout(async() => {
+        // Reiniciar animación
+        typingElement.style.animation = 'none';
+        void typingElement.offsetWidth; // Forzar reflow para reiniciar animación
+
+        const newText = messages[i];
+        typingElement.textContent = newText;
+
+        // Mostrar Spotify cuando llegue el mensaje de cumpleaños
+        if (messages[i] === '🥳 ¡Feliz cumpleaños, pequeña fea! 🥳') {
+          spotifyContainer.style.display = 'block';
+          // Pequeña animación de entrada
+          setTimeout(() => {
+            spotifyContainer.style.opacity = '0';
+            spotifyContainer.style.transform = 'translateX(-50%) translateY(20px)';
+            spotifyContainer.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            setTimeout(() => {
+              spotifyContainer.style.opacity = '1';
+              spotifyContainer.style.transform = 'translateX(-50%) translateY(0)';
+            }, 50);
+          }, 100);
+        }
+
+        // Cambiar fondo cuando aparece el saludo
+        if (messages[i] === 'Hola, pequeña 🙀') {
+          document.body.style.backgroundImage = 'url(https://i.gifer.com/9JWf.gif)';
+        }
+        if (messages[i] === '') {
+          document.body.style.backgroundImage = 'url(https://i.pinimg.com/originals/c0/2a/24/c02a24bed910cf3765ce25de9ac6c461.gif)';
+        }
+        if (messages[i] === '3') {
+          await contarHasta1000();
+          return;
+        }
+
+        // Usar el ancho calculado en píxeles para mejor precisión
+        const textWidth = calculateTextWidth(newText);
+        typingElement.style.setProperty('--width', textWidth);
+
+        // Reaplicar animación con duración ajustada según la longitud del texto
+        const duration = Math.max(1.5, Math.min(4, newText.length * 0.1));
+        typingElement.style.animation = `typing ${duration}s steps(${Math.max(10, newText.length)}, end) forwards, blink 0.7s infinite`;
+      }, i * 4000); // Mostrar cada mensaje con 4s de diferencia
+    }
+
+    // Ajustar el contenedor al cambiar el tamaño de la ventana
+    window.addEventListener('resize', () => {
+      const currentText = typingElement.textContent;
+      if (currentText) {
+        const textWidth = calculateTextWidth(currentText);
+        typingElement.style.setProperty('--width', textWidth);
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title|default:"Positiva CSM" }}{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" sizes="180x180" href='{% static "resources/logo_positiva.png" %}' />
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="{% static 'css/output.css' %}" rel="stylesheet">
+    <link href='{% static "medicamentos/css/scroll.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/menu.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-home.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-options.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-options.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-historico.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-filter.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/img-content.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/filtered.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-query.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-show.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-estandar.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-actas.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/button-pts.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-info.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/mas-info-termometro.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/acta-item.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-table.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-load.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/content-alert.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/hidden-alert.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/mapa-container.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/spinner-load.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/viewContainer.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/buttons-pagination.css" %}' rel="stylesheet"/>
+    <link href='{% static "medicamentos/css/dashboard.css" %}' rel="stylesheet"/>
+    <link href='{% static "spotify/css/spotify.css" %}' rel="stylesheet"/>
+    <!-- <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <script src="https://open.spotify.com/embed/iframe-api/v1" async></script> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body class="bg-[#e5e8e8]">
+    <header class="content-status banner-header main-header bg-white rounded-b-lg shadow-sm sticky top-0 z-[9999] mt-0 px-4 mb-2 transition-transform duration-300 ease-in-out">
+        <div class="flex justify-between items-center bg-transparent">
+            <div class="text-white font-bold text-left flex-shrink-0 py-2">
+            <!-- <div class="content-navidad text-white font-bold text-left flex-shrink-0 py-2"> -->
+                <img src="{% static 'resources/logo-positiva-naranja.png' %}" alt="Logo" class="logo-img h-[60px] w-[220px]" onclick="location.href='{% url 'home' %}'" style="cursor: pointer;">
+            </div>
+            <button id="menu-toggle" class="btn-open-movil text-black md:hidden flex items-center">
+                &#9776;
+            </button>
+        </div>
+        <nav id="menu" class="hidden md:flex flex-col md:flex-row mt-4 px-4 space-x-4">
+            <div class="relative group">
+                <div class="flex justify-between items-center space-x-2">
+                    <img src="{% static 'resources/libro-de-leyes.gif' %}" alt="img-minsalud" class="option-img h-10">
+                    <button class="btn-med text-black focus:outline-none">Actualizaciones CUPS
+                </div>
+                <div class="content-submenu absolute overflow-auto left-[-3.8px] top-[30px] w-[320px] max-h-[400px] mt-2 hidden group-hover:block bg-white shadow-lg z-10">
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2706-de-2025.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 2706 de 2025 y sus anexos Resolución 1905 de 2025</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resoluciones-2641-2689-2024-anexos-tecnicos.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 2641 de 2024 y 2689 de 2024 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion_2336_20231229.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolucíon 2336 de 2023 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-2775-de-2022-anexos.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 2775 de 2022 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OCI/resolucion-1638-de-2022.pdf" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 1638 de 2022</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2077-de-2021-anexos.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 2077 de 2021 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-126-de-2021-anexos.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 0126 de 2021 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2238-de-2020-anexos.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 2238 de 2020 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/RID/resolucion-537-de-2020.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 537 de 2020 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-3495-2019.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 3495 de 2019 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-5851-de-2018.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 5851 de 2018 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resoluci%c3%b3n%20No.%20483%20del%202018.pdf" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 483 de 2018</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-5171-de-2017.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 5171 de 2017 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/Resolucion-1132-de-2017.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 1132 de 2017 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/Resolucion-5975-de-2016.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 5975 de 2016 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resoluci%c3%b3n%203804%20de%202016.pdf" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 3804 de 2016</a>
+                    <a href="http://url.minsalud.gov.co/cups-2016" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 1352 de 2016 y sus anexos</a>
+                    <a href="https://www.minsalud.gov.co/sites/rid/lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-4678-de-2015.zip" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Resolución 4678 de 2015</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="flex justify-between items-center space-x-2">
+                    <img src="{% static 'resources/pill.gif' %}" alt="img-medicamentos" class="option-img h-10">
+                    <button class="btn-med text-black focus:outline-none">
+                        Medicamentos
+                    </button>
+                </div>
+                <div class="content-submenu absolute left-[-3.8px] top-[30px] w-[320px] mt-2 hidden group-hover:block bg-white shadow-lg z-10">
+                    <a href="{% url 'moleculas-vigente' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Histórico Vigente</a>
+                    <a href="{% url 'controlados' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Medicamentos Control Especial</a>
+                    <a href="{% url 'monopolio' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Medicamentos Monopolio del Estado</a>
+                    <a href="#" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Regulados</a>
+                    <div class="group flex justify-between items-center gap-2 p-2 sm:px-4">
+                        <a href="{% url 'termometro' %}" 
+                        class="options-menu-desktop flex-1 block px-2 sm:px-4 py-2 text-sm sm:text-base text-gray-700 hover:bg-gray-100 min-w-0">
+                            <span class="truncate">Termómetro de Medicamentos</span>
+                        </a>
+                        <div class="flex-shrink-0">
+                            <img src="{% static 'resources/termometro.png' %}" 
+                            alt="Termómetro de medicamentos" 
+                            class="option-img h-8 w-8 sm:h-10 sm:w-10 object-contain drop-shadow-sm">
+                        </div>
+                    </div>
+                    <!-- <a href="{% url 'termometro' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Termómetro de Medicamentos</a> -->
+                    <!-- <a href="{% url 'moleculas-antiguo' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Z-Histórico Antiguo</a> -->
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="flex justify-between items-center space-x-2">
+                    <img src="{% static 'resources/redPositiva.gif' %}" alt="img-medicamentos" class="option-img h-10">
+                    <button class="btn-med text-black focus:outline-none">
+                        Red Positiva
+                    </button>
+                </div>
+                <div class="content-submenu absolute left-[-3.8px] top-[30px] w-[320px] mt-2 hidden group-hover:block bg-white shadow-lg z-10">
+                    <a href="{% url 'dane' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Códigos DANE y Zona Especial</a>
+                    <a href="{% url 'cups' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">CUPS</a>
+                    <a href="{% url 'datos-proveedores' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Datos Proveedores</a>
+                    <a href="{% url 'proveedores' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Proveedores Contratados</a>
+                    <div class="flex relative justify-between space-x-0 px-2">
+                        <img href="{% url 'reps-data' %}" src="{% static 'resources/excavadora.gif' %}" alt="img-exc" class="option-img h-10 mx-2">
+                        <a href="{% url 'reps-data' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">REPS Data</a>
+                    </div>
+                    <a href="{% url 'dashboard' %}" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Tablero Red Asistencial</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <div class="flex justify-between items-center space-x-2">
+                    <img src="{% static 'resources/datos.gif' %}" alt="img-medicamentos" class="option-img h-10">
+                    <button class="btn-med text-black focus:outline-none">Otros</button>
+                </div>
+                <div class="content-submenu absolute left-[-3.8px] top-[30px] w-[320px] mt-2 hidden group-hover:block bg-white shadow-lg z-10">
+                    <a href="https://egroj182.github.io/app-invima-EGROJ182/jorge-vega/query.html" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">API Invima</a>
+                    <a href="https://positivacuida.positiva.gov.co/" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Cuida 2</a>
+                    <a href="https://consultaregistro.invima.gov.co/Consultas/consultas/consreg_encabcum.jsp" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Invima</a>
+                    <a href="https://www.minsalud.gov.co/salud/POS/Paginas/plan-obligatorio-de-salud-pos.aspx" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Ministerio de Salud POS Pópuli</a>
+                    <a href="https://prestadores.minsalud.gov.co/habilitacion/" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">REPS</a>
+                    <a href="https://www.rues.org.co/" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">RUES</a>
+                    <a href="https://www.rues.org.co/busqueda-avanzada" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">RUES Busqueda Avanzado</a>
+                    <a href="https://web.sispro.gov.co/WebPublico/Consultas/ConsultarReferenciaBasica.aspx" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">SISPRO</a>
+                    <a href="https://www.minsalud.gov.co/salud/MT/Paginas/termometro-de-precios.aspx" target="_blank" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">Termómetro de Medicamentos (Min Salud)</a>
+                    <a href="{% url 'mft_browser' %}" target="" class="options-menu-desktop block px-4 py-2 w-full text-gray-700 hover:bg-gray-100">MFT Contratación</a>
+                    <!-- <div class="flex relative justify-between space-x-0 px-2">                         -->
+                        <!-- <img src="{% static 'resources/prohibido.gif' %}" alt="img-prohibido" class="option-img h-10 mx-2"> -->
+                    <!-- </div> -->
+                    <div class="flex relative justify-between space-x-0 px-2">
+                        <img src="{% static 'resources/prohibido.gif' %}" alt="img-prohibido" class="option-img h-10 mx-2">
+                        <a href="#" target="" class="options-menu-desktop block px-4 py-2 w-full text-red-700 hover:bg-gray-100">FTP Contratación</a>
+                    </div>
+                </div>
+            </div>
+            <!-- ver alertas -->
+            <!-- <div id="open-alert" class="fixed top-0 left-[45%] z-[100]"> -->
+            <div id="open-alert" class="flex justify-between items-center space-x-2 hidden">
+                <img id="img-open-alert" src="{% static 'resources/advertencia.gif' %}" alt="img-view-alert" class="option-img h-10">
+                <button class="btn-med text-black focus:outline-none">Alertas</button>
+            </div>
+            <!-- </div> -->
+        <img src="{% static 'resources/spotify.svg' %}" alt="Logo" class="spotify w-[130px] h-[130px] cursor-pointer">
+        </nav>
+    </header>
+    <!-- Menú lateral para dispositivos móviles -->
+    <div id="mobile-menu" class="main-header fixed inset-0 bg-gray-800 bg-opacity-75 z-[9999] hidden">
+        <img src="{% static 'resources/spotify.svg' %}" alt="Logo" class="spotify w-[130px] h-[130px] cursor-pointer">
+        <div class="bg-white w-64 h-full p-4">
+            <button id="close-menu" class="btn-close-movil text-black mb-4 w-full text-right">
+                &#10005;
+            </button>
+            <nav class="space-y-4">
+                <div class="relative group">
+                    <button class="btn-med block w-full text-left">Actualizaciones CUPS</button>
+                    <div class="content-submenu absolute overflow-auto top-[-10px] left-[170px] max-h-[500px] mt-2 hidden group-hover:block bg-gray-100 w-full">
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2706-de-2025.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 2706 de 2025 y sus anexos Resolución 1905 de 2025</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resoluciones-2641-2689-2024-anexos-tecnicos.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 2641 de 2024 y 2689 de 2024 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion_2336_20231229.zip" class="options-menu-movil block text-sm sm:text-base px-4 py-2 text-gray-700 hover:bg-white">Resolucíon 2336 de 2023 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-2775-de-2022-anexos.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 2775 de 2022 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/OCI/resolucion-1638-de-2022.pdf" class="options-menu-movil block text-sm sm:text-base px-4 py-2 text-gray-700 hover:bg-white">Resolución 1638 de 2022</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2077-de-2021-anexos.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 2077 de 2021 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-126-de-2021-anexos.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 0126 de 2021 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-2238-de-2020-anexos.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 2238 de 2020 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/RID/resolucion-537-de-2020.zip" class="options-menu-movil block px-4 py-2 text-gray-700 hover:bg-white">Resolución 537 de 2020 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-3495-2019.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 3495 de 2019 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-5851-de-2018.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 5851 de 2018 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resoluci%c3%b3n%20No.%20483%20del%202018.pdf" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 483 de 2018</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/VP/RBC/resolucion-5171-de-2017.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 5171 de 2017 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/Resolucion-1132-de-2017.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 1132 de 2017 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/Lists/BibliotecaDigital/RIDE/DE/DIJ/Resolucion-5975-de-2016.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 5975 de 2016 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/Normatividad_Nuevo/Resoluci%c3%b3n%203804%20de%202016.pdf" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 3804 de 2016</a>
+                        <a href="http://url.minsalud.gov.co/cups-2016" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 1352 de 2016 y sus anexos</a>
+                        <a href="https://www.minsalud.gov.co/sites/rid/lists/BibliotecaDigital/RIDE/DE/DIJ/resolucion-4678-de-2015.zip" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Resolución 4678 de 2015</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="btn-med block w-full text-left">Medicamentos</button>
+                    <div class="content-submenu absolute top-[-10px] left-[160px] mt-2 hidden group-hover:block bg-gray-100 w-full">
+                        <a href="{% url 'moleculas-vigente' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Histórico Vigente</a>
+                        <a href="{% url 'controlados' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Medicamentos Controlados</a>
+                        <a href="{% url 'monopolio' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Medicamentos Monopolio del Estado</a>
+                        <a href="#" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Regulados</a>
+                        <a href="{% url 'termometro' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Termómetro de Medicamentos</a>                            
+                        <!-- <a href="{% url 'moleculas-antiguo' %}" class="options-menu-movil block px-4 py-2 text-gray-700 hover:bg-white">Z-Histórico Antiguo</a> -->
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="btn-med block w-full text-left">Red Positiva</button>
+                    <div class="content-submenu absolute top-[-10px] left-[170px] mt-2 hidden group-hover:block bg-gray-100 w-full">
+                        <a href="{% url 'dane' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Códigos DANE y Zona Especial</a>
+                        <a href="{% url 'cups' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">CUPS</a>
+                        <a href="{% url 'datos-proveedores' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Datos Proveedores</a>
+                        <a href="{% url 'proveedores' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Proveedores Contratados</a>
+                        <div class="group flex justify-between items-center gap-2 p-2 sm:px-4">
+                            <div class="flex-shrink-0">
+                                <img href="{% url 'reps-data' %}" src="{% static 'resources/excavadora.gif' %}" alt="img-exc" 
+                                class="option-img h-8 w-8 sm:h-10 sm:w-10 object-contain drop-shadow-sm">
+                            </div>
+                            <a href="{% url 'reps-data' %}" 
+                                class="options-menu-movil flex-1 block px-2 sm:px-4 py-2 text-sm sm:text-base text-gray-700 hover:bg-gray-white min-w-0">
+                                <span class="truncate">REPS Data</span>
+                            </a>
+                        </div>
+                        <!-- <div class="flex justify-between items-center space-x-0 px-2">
+                            <img href="{% url 'reps-data' %}" src="{% static 'resources/excavadora.gif' %}" alt="img-exc" class="option-img h-10 mx-2">
+                            <a href="{% url 'reps-data' %}" class="options-menu-movil block px-4 py-2 text-gray-700 hover:bg-white">REPS Data</a>
+                        </div> -->
+                        <a href="{% url 'dashboard' %}" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Tablero Red Asistencial</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="btn-med block w-full text-left">Otros</button>
+                    <div class="content-submenu absolute top-[-10px] left-[170px] mt-2 hidden group-hover:block bg-gray-100 w-full">
+                        <a href="https://egroj182.github.io/app-invima-EGROJ182/jorge-vega/query.html" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">API Invima</a>
+                        <a href="https://positivacuida.positiva.gov.co/" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Cuida 2</a>
+                        <a href="https://consultaregistro.invima.gov.co/Consultas/consultas/consreg_encabcum.jsp" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Invima</a>
+                        <a href="https://www.minsalud.gov.co/salud/POS/Paginas/plan-obligatorio-de-salud-pos.aspx" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Ministerio de Salud POS Pópuli</a>
+                        <a href="https://prestadores.minsalud.gov.co/habilitacion/" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">REPS</a>
+                        <a href="https://ruesfront.rues.org.co/" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">RUES</a>
+                        <a href="https://ruesfront.rues.org.co/busqueda-avanzada" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">RUES Busqueda Avanzada</a>
+                        <a href="https://web.sispro.gov.co/WebPublico/Consultas/ConsultarReferenciaBasica.aspx" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">SISPRO</a>
+                        <a href="https://www.minsalud.gov.co/salud/MT/Paginas/termometro-de-precios.aspx" target="_blank" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">Termómetro de Medicamentos (Min Salud)</a>
+                        <a href="{% url 'mft_browser' %}" target="" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">MFT Contratación</a>
+                        <!-- <div class="flex justify-between items-center space-x-0 px-2">
+                            <img src="{% static 'resources/prohibido.gif' %}" alt="img-exc" class="option-img h-10 mx-2">
+                        </div> -->
+                        <div class="flex justify-between items-center space-x-0 px-2">
+                            <img src="{% static 'resources/prohibido.gif' %}" alt="img-exc" class="option-img h-10 mx-2">
+                            <a href="#" target="" class="options-menu-movil text-sm sm:text-base block px-4 py-2 text-gray-700 hover:bg-white">FTP Contratación</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="open-alert2" class="flex justify-start hidden">
+                    <img id="img-open-alert2" src="{% static 'resources/advertencia.gif' %}" alt="img-view-alert2" class="option-img h-10">
+                    <button class="btn-med2 block w-full text-left">Alertas</button>
+                </div>
+            </nav>
+        </div>
+        <div class="container mx-auto px-4 py-4 h-0">
+            <h1 class="text-2xl font-bold">Spotify</h1>
+            <button id="login-button" class="mt-2 bg-[] text-white px-4 py-2 rounded">Iniciar sesión</button>
+            <div id="playlists" class="mt-4 h-0"></div>
+        </div>
+    </div>
+    <!-- Contenedor Paginas -->
+    <main class="content-page my-full mx-full bg-white">
+        <!-- Contenido -->
+        {% block content %}
+        <section class="w-full py-20 bg-transparent h-auto">
+            <section class="w-full lg:w-3/10 py-4 bg-transparent h-[210px]">
+                <div class="container mx-auto px-4 flex justify-center items-center">
+                    
+                </div>
+            </section>
+            <!-- <section id="filters" class="content-noticias w-full py-20 bg-gray-100 h-[700px]">
+                <div class="container mx-auto px-4">
+                -- Noticias --
+                </div>
+            </section> -->
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer class="bg-slate-50 rounded-t-2xl shadow-lg text-black font-semibold p-6 mt-10">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <!-- Sección de redes sociales -->
+                <div class="flex space-x-6 mb-4 md:mb-0">
+                    <a href="#" class="social-img hover:text-gray-400">
+                        <img src="{% static 'resources/svg/facebook.svg' %}" alt="Facebook" class="h-10 w-10">
+                    </a>
+                    <a href="#" class="social-img hover:text-gray-400">
+                        <img src="{% static 'resources/svg/youtube.svg' %}" alt="You Tube" class="h-10 w-10">
+                    </a>
+                    <a href="#" class="social-img hover:text-gray-400">
+                        <img src="{% static 'resources/svg/instagram.svg' %}" alt="Instagram" class="h-10 w-10">
+                    </a>
+                </div>
+    
+                <!-- Sección de Copyright -->
+                <div class="text-center mb-4 md:mb-0">
+                    <p class="text-sm">&copy; 2024 - 2025 <a href="https://github.com/EGROJ182" target="_blank" class="text-[#ff7c00]">DevEGROJ</a>. All Rights Reserved.</p>
+                    <p>Contacto: <a href="mailto:analistared11@positiva.gov.co" target="_blank" class="hover:underline text-[#ff7c00]">dev@positiva</a></p>
+                </div>
+                
+                <!-- Sección de desarrollo -->
+                <div class="text-center text-sm">
+                    <p>Red Asistencial ( Positiva )</p>
+                    <p class="text-sm">V.1.0</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- JS de Leaflet -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="{% static 'medicamentos/js/menu.js' %}"></script>
+    <script src="{% static 'medicamentos/js/filtered-h-s.js' %}"></script>
+    <script src="{% static 'medicamentos/js/animated-details.js' %}" defer></script>
+    <script src="{% static 'medicamentos/js/total-actas.js' %}"></script>
+    <script src="{% static 'medicamentos/js/total-proveedores.js' %}"></script>
+    <script src="{% static 'medicamentos/js/load-map.js' %}"></script>
+    <script src="{% static 'medicamentos/js/page-number.js' %}"></script>
+    <script src="{% static 'medicamentos/js/viewContainer.js' %}"></script>
+    <script src="{% static 'medicamentos/js/load_file.js' %}"></script>
+    <script src="{% static 'medicamentos/js/alert.js' %}" defer></script>
+    <script src="{% static 'medicamentos/js/hidden-alert.js' %}" defer></script>
+    <script src="{% static 'medicamentos/js/view-vencimientos.js' %}"></script>
+    <script src="https://unpkg.com/topojson-client@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script src="{% static 'medicamentos/js/mas-info-termometro.js' %}"></script> -->
+    <!-- <script src="{% static 'medicamentos/js/tooltip.js' %}"></script> -->
+    <!-- <script src="{% static 'spotify/js/spotify.js' %}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

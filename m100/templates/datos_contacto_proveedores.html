@@ -1,0 +1,180 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block content %}
+
+<meta charset="UTF-8">
+
+<section class="content-view w-full py-0 bg-gray-50">
+    <!-- Opciones HC Otros -->
+    <div class="content-options flex flex-wrap space-x-4 space-y-0 p-0 m-0 py-0 px-0">
+        <div class="relative ml-4 top-3 left-0"> 
+            <a href="{% url 'datos-proveedores' %}">
+                <button type="button" class="options-med button-50">Consultas</button>
+            </a>
+        </div>
+        <div class="relative ml-4 top-3 left-0">
+            <a href="{% url 'datos-proveedores' %}">
+                <button type="button" class="options-med button-50">Validación</button>
+            </a>
+        </div>
+        <div class="relative ml-4 top-3 left-0">
+            <a href="{% url 'datos-proveedores' %}">
+                <button type="button" class="options-med button-50">Cargue</button>
+            </a>
+        </div>
+    </div>
+    <!-- Contenedor Filtros -->
+    <section id="filters" class="content-filter-med w-full py-20 bg-gray-100">
+        <div class="filtered container mx-auto px-4 shadow-lg py-4">
+            <form method="GET" action="{% url 'datos-proveedores' %}">
+        <!-- Aquí van los filtros -->
+            <div class="flex flex-wrap justify-between space-x-4">
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="name" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Razón Social</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="nit" id="nit" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="nit" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">NIT Proveedor</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="phone" id="phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="phone" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Teléfono</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="cell" id="cell" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="cell" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Celular</label>
+                </div>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="departament" class="block text-sm font-medium text-gray-700">Departamento</label>
+                <select name="departament" id="departament" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for dpto in departamentos.all %}
+                            <option value="{{ dpto }}">{{ dpto }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="city" class="block text-sm font-medium text-gray-700">Municipio</label>
+                <select name="city" id="city" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for municipio in municipios.all %}
+                            <option value="{{ municipio }}">{{ municipio }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Btn buscar !-->
+            <button type="submit" class="button-48" role="button"><span class="text">Buscar</span></button>
+        </form>
+        </div>
+    </section>
+    <!-- Contenedor Información -->
+    <section id="info-buttons" class="content-info w-full lg:w-3/10 py-4 bg-[#e5e8e8] shadow-lg">
+        <div class="content-bar container mx-auto px-4 flex justify-between items-center">        
+            <div class="flex-1">
+                <!-- Aquí van los labels de span y botones -->
+                <p>Registros encontrados <span id="result-query" class="font-semibold">{{ info_page.paginator.count }}</span></p>
+                <p>Filtros Aplicados : 
+                    <span class="font-semibold">
+                        {% if filtros_aplicados %}
+                        {{ filtros_aplicados|join:", " }}
+                        {% else %}
+                        Ningún filtro aplicado
+                        {% endif %}
+                    </span>
+                </p>
+                {% if not filtros_aplicados and info_page.paginator.count == 0 %}
+                <p><span class="font-semibold text-[#3030b1]">Actualizando Tabla Datos de Proveedores</span></p>
+                <p><span class="font-semibold text-[#339c33]">Espere un momento por favor ...</span></p>
+
+                {% elif info_page.paginator.count == 0 %}
+                <p>Ultima Actualización <span class="font-semibold">17 de septiembre del 2025</span></p>
+                <p><span class="font-semibold text-[#b13030]">⚠ No se encontraron resultados con los filtros aplicados</span></p>
+
+                {% else %}
+                <p>Ultima Actualización <span class="font-semibold">17 de septiembre del 2025</span></p>
+                {% endif %}
+            </div>
+            <div class="ml-4">
+                <button id="toggle-filters" class="button-49" role="button">Ver Filtros</button>
+            </div>
+            <div class="ml-4">
+                <button class="button-actas" role="button">Ver Resumen</button>
+            </div>
+        </div>
+    </section>
+    <!-- Contenedor Actas Cargadas -->
+    <section id="section-actas" class="content-div-actas w-full bg-transparent h-max-auto">
+        <!-- Seccion Mapa -->
+    <!-- <section id="section-maps" class="content-div-actas w-full bg-[#f3f4f581] h-max-auto"> -->
+        <div class="vista-movil w-full bg-[#f3f4f562] shadow-xl">
+            <div class="mapa-container bg-[#f3f4f581] h-full rounded-xl shadow-xl">
+                <div class="content-mapa h-full shadow-xl bg-[#f3f4f581]">
+                    <h1 class="title-map text-3xl text-white font-bold text-center my-6">Mapa Red Asistencial</h1>
+                    <!-- Contenedor Mapa -->
+                    <div id="map" class="mapa relative z-0">
+                        <!-- Mapa -->
+                    </div>
+                </div>
+                <div class="content-proveedores-mapa bg-[#f3f4f562] h-full rounded-xl shadow-xl overflow-y-auto text-[10px]">
+                    <p class="title-proveedores-mapa font-bold text-center">Prestadores Encontrados {{ proveedores_mapa|length }}</p>
+                    {% for proveedor in proveedores_mapa %}
+                    <div class="proveedor-mapa p-3 border border-gray-300 mb-2">
+                        <p><strong>NIT Proveedor:</strong> {{ proveedor.nit }}</p>
+                        <p><strong>Proveedor:</strong> {{ proveedor.name }}</p>
+                        <p><strong>Tipo de Proveedor:</strong> {{ proveedor.departament }}</p>
+                        <p><strong>Número & Año Contrato:</strong> {{ proveedor.city }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    <!-- </section> -->
+    </section>
+    <!-- Contenedor Tabla -->
+    <section id="table-pagination" class="content-navidad w-full lg:w-7/10 py-2">
+        <div class="content-pagination-cups container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl">
+            <!-- Título -->
+            <h1 class="text-3xl font-bold text-center my-6">Datos de Contacto Proveedores</h1>
+            <!-- Paginación -->
+            <div id="content-pagination" class="relative bg-transparent">
+                <form method="GET" action="">
+                    <div class="relative w-[200px] min-w-[200px] z-0 mb-0 flex-1 border border-gray-300 rounded-md bg-white">
+                        <input type="number" name="page" id="page" min="1" max="{{ info_page.paginator.num_pages }}" data-total-pages="{{ info_page.paginator.num_pages }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " oninput="updatePageLink()" />
+                        <label for="page" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">
+                            <p>Pagina <span id="page-number" class="font-bold">{{ info_page.number }}</span> de <span class="font-semibold">{{ info_page.paginator.num_pages }}</span></p>
+                        </label>
+                    </div>
+                    <div class="relative flex justify-end space-x-4 bg-transparent">
+                        <button id="btn-page" type="submit" onclick="loadPage(event)" class="buttons-pagination text-blue-500 font-semibold">Ir</a>
+                        <button id="btn-first" type="button" onclick="buttonFirst(event)" class="buttons-pagination text-blue-500 font-semibold">Primera</button>
+                        <button id="btn-previous" type="button" onclick="buttonPrevious(event)" class="buttons-pagination text-blue-500 font-semibold"><span id="previous" class="text-blue-500 font-semibold">1</span> Anterior</button>
+                        <button id="btn-next" type="button" onclick="buttonNext(event)" class="buttons-pagination text-blue-500 font-semibold">Siguiente <span id="next" class="text-blue-500 font-semibold">2</span></button>
+                        <button id="btn-last" type="button" onclick="buttonLast(event)" class="buttons-pagination text-blue-500 font-semibold">Última</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Tabla -->
+    <section class="content-table-cups w-full py-4 shadow-xl flex justify-center items-center bg-[#f3f4f581]">
+        <div id="medicamentos-table-container" class="overflow-x-auto w-[90%] h-[70vh] bg-[#f3f4f562] rounded-xl shadow-xl">
+            {% include 'partials/datos_proveedores_table.html' %}
+        </div>
+    </section>
+</section>
+<!-- {% load json_filters %} -->
+<pre class="">{{ mapa_data|json_script }}</pre>
+<script type="application/json">
+    {{ mapa_data|json_script }}
+</script>
+
+<script src="{% static 'medicamentos/js/page-button.js' %}"></script>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% load static %}
+
+{% load humanize %}
+
+<div class="container overflow-auto w-full h-auto bg-[#f3f4f562] rounded-xl shadow-xl">
+<h3 class="sticky top-0 z-5 title text-3xl font-bold text-center my-6">Prestadores de Tecnologías en Salud {{ estandar|length|add:-1 }}</h3>    
+<div id="medicamentos-table-container" class="container overflow-auto w-full h-[70vh] bg-[#f3f4f562] rounded-xl shadow-xl">
+    <!-- Encabezados -->
+    <div class="sticky top-0 bg-[#f3f4f5] z-10 flex justify-between border-b border-gray-300 text-center font-bold min-w-[1024px]">
+        <p class="w-[5%] py-2">#</p>
+        <p class="w-[15%] py-2">NIT</p>
+        <p class="w-[20%] py-2">Razón Social</p>
+        <p class="w-[20%] py-2">Total CUMS Medicamentos</p>
+        <p class="w-[20%] py-2">Total CUMS Otros</p>
+        <p class="w-[20%] py-2">Suma Total CUMS</p>
+    </div>
+    {% for estandar in estandar %}
+    <!-- Filas -->
+    <div class="flex items-center border-b border-gray-300 text-center min-w-[1024px] hover:bg-[#4aa5ff62] hover:font-semibold transition-colors duration-300 relative">
+        <!-- Número de fila -->
+        <div class="w-[5%] flex justify-between py-2 border-r border-l border-gray-300 relative group">
+            <p class="w-full py-2">{{ forloop.counter }}</p>
+            {% if estandar.nit_proveedor != 'Positiva' %}            
+            <div 
+                class="absolute z-50 hidden group-hover:block grid-cols-2 bg-gray-100 shadow-lg rounded-lg text-[{{ estandar.color }}] font-bold px-2 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 0; left: 140%; transform: translateX(-50%);"
+                data-expediente="{{ estandar.nit_proveedor }}">
+                <!-- Contenedor imagen mas informacion -->
+                <div class="flex w-[50px] justify-center">
+                    <img src="{% static 'resources/info2.gif' %}" alt="img-info" class="option-img h-10 cursor-pointer" data-expediente="{{ estandar.nit_proveedor }}">
+                </div>
+            </div>
+        {% endif %}
+        </div>
+        <!-- Contenedor de mas informacion del otro canal del mismo expediente-->
+        <!-- class="informacion absolute z-20 hidden grid-rows-6 bg-white shadow-lg rounded-3xl text-[{{ estandar.color }}] px-4 py-2 border border-gray-300"
+        style="top: 10; left: 50%; transform: translateX(-50%);"> -->
+        <div 
+        id="info-{{ estandar.nit_proveedor }}"
+        class="informacion fixed inset-0 z-[9999] hidden flex-col bg-white shadow-2xl rounded-3xl text-[#333] p-6 border-2 border-blue-500 m-auto max-w-[90%] max-h-[90%] overflow-auto">
+        <!-- Contenido del contenedor -->
+        <div class="flex w-[115px] justify-start space-x-2 text-black items-center bg-white rounded-xl max-w-[90%] max-h-[90%]">
+            <img src="{% static 'resources/x.gif' %}" alt="img-close" class="option-img rounded-xl h-10 cursor-pointer" data-expediente="{{ estandar.nit_proveedor }}">
+            <p class="option-img cursor-pointer font-semibold" data-expediente="{{ estandar.nit_proveedor }}">Cerrar</p>
+        </div>
+        <div class="relative justify-center space-x-2 text-orange-600 font-bold bg-white max-w-full max-h-[90%]">
+            <p class="option-img">{{ estandar.nit_proveedor }} - {{ estandar.nombre_del_proveedor_pactado }}</p>
+        </div>
+        <div class="sticky top-0 bg-white flex border-b items-center justify-center text-center font-bold max-w-full max-h-[90%]">
+            <p class="w-[5%] py-2">Item</p>
+            <p class="w-[20%] py-2">Tipo</p>
+            <p class="w-[30%] py-2">Número Acta / Estandar</p>
+            <p class="w-[25%] py-2">Fecha Pactada</p>
+            <p class="w-[20%] py-2">Móleculas Pactadas</p>
+        </div>
+        {% for acta in info_actas_m100 %}
+            {% if estandar.nit_proveedor == acta.nit_proveedor %}
+                <div class="flex items-center text-center border-b bg-white justify-between max-w-full max-h-[90%] hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300">
+                    <img src="{% static 'resources/med.gif' %}" alt="img-med" class="option-img rounded-xl h-12 cursor-pointer">
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[20%] py-2 border-r border-gray-300">Medicamentos</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[30%] py-2 border-r border-gray-300">{{ acta.numero_acta_inicial }}</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[25%] py-2 border-r border-gray-300">{{ acta.fecha_pactada }}</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[20%] py-2 border-gray-300">{{ acta.total_moleculas }}</p>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% for acta in info_actas_otros %}
+                {% if estandar.nit_proveedor == acta.nit_proveedor %}
+                <div class="flex items-center text-center border-b bg-white justify-between max-w-full max-h-[90%] hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300">
+                    <img src="{% static 'resources/ins.gif' %}" alt="img-ins" class="option-img rounded-xl h-12 cursor-pointer">
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[20%] py-2 border-r border-gray-300">Otros</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[30%] py-2 border-r border-gray-300">{{ acta.numero_acta_inicial }}</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[25%] py-2 border-r border-gray-300">{{ acta.fecha_pactada }}</p>
+                    <p class="hover:bg-[#ffab4a62] hover:font-semibold transition-colors duration-300 w-[20%] py-2 border-gray-300">{{ acta.total_moleculas }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <!-- Datos -->
+        <p class="w-[15%] py-2 border-r border-gray-300 hover-trigger">{{ estandar.nit_proveedor }}</p>
+        <p class="w-[20%] py-2 border-r border-gray-300">{{ estandar.nombre_del_proveedor_pactado }}</p>
+        <p class="w-[20%] py-2 border-r border-gray-300">{{ estandar.total_cums_m100 }}</p>
+        <p class="w-[20%] py-2 border-r border-gray-300">{{ estandar.total_cums_otros }}</p>
+        <div class="w-[20%] flex justify-center py-2 border-r border-gray-300 relative group">
+            <p class="w-full py-2 border-r border-gray-300 text-[{{ estandar.color }}] font-bold">{{ estandar.suma_total_cums }}</p>
+            <!-- Contenedor de consulta (inicialmente oculto, dinámico) -->
+            <div 
+            class="absolute z-10 hidden group-hover:block bg-gray-100 shadow-lg rounded-lg text-[{{ estandar.color }}] font-bold px-4 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+            style="top: 0; left: 14%; transform: translateX(-50%);">
+                <div class="flex w-[115px] justify-start space-x-2 text-black items-center bg-white rounded-xl">
+                    <img src="{% static 'resources/x.gif' %}" alt="img-close" class="option-img rounded-xl h-10 cursor-pointer" data-expediente="{{ estandar.nit_proveedor }}">
+                    <p class="option-img cursor-pointer font-semibold" data-expediente="{{ estandar.nit_proveedor }}">Descargar Estandar</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+
+<script src="{% static 'medicamentos/js/mas-info-termometro.js' %}"></script>

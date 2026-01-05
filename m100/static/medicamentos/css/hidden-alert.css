@@ -1,0 +1,73 @@
+#content-alert {
+    max-height: auto;
+    opacity: 1;
+    /* opacity: 0; */
+    transition: max-height 0.5s ease, opacity 0.5s ease; /* Ajusta la duración según prefieras */
+    /* visibility: hidden; */
+    visibility: visible;
+     /* Inicia invisible */
+}
+
+#content-alert.show {
+    max-height: 140px; /* Ajusta según sea necesario */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#content-alert.hide {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+#open-alert {
+    transition: opacity 0.2s ease, visibility 0.2s ease, height 0.2s ease;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+}
+
+#open-alert.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    pointer-events: none;
+}
+
+#open-alert2 {
+    transition: opacity 0.2s ease, visibility 0.2s ease, height 0.2s ease;
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+}
+
+#open-alert2.hidden {
+    opacity: 0;
+    visibility: hidden;
+    height: 0;
+    pointer-events: none;
+}
+
+#banner-animals {
+    max-height: 0; /* CAMBIO: Empezar con 0 */
+    opacity: 0;
+    visibility: hidden;
+    overflow: hidden; /* IMPORTANTE: Para que max-height funcione */
+    transition: max-height 0.5s ease, opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#banner-animals.show {
+    max-height: 140px; /* Ajusta según sea necesario */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#banner-animals.hide {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}

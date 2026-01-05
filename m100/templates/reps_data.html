@@ -1,0 +1,284 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block content %}
+<section class="content-view w-full py-0 bg-gray-50">
+    <!-- Opciones HC Otros -->
+    <div class="content-options flex flex-wrap space-x-4 space-y-0 p-0 m-0 py-0 px-0">
+        <div class="relative ml-4 top-3 left-0">
+            <a href="#">
+                <button type="button" class="options-med button-50">Actualización</button>
+            </a>
+        </div>
+        <div class="relative ml-4 top-3 left-0"> 
+            <a href="https://prestadores.minsalud.gov.co/habilitacion/" target="_blank">
+                <button type="button" class="options-med button-50">REPS</button>
+            </a>
+        </div>
+        <div class="relative ml-4 top-3 left-0">
+            <a href="#">
+                <button type="button" class="options-med button-50">Validación</button>
+            </a>
+        </div>
+    </div>
+    <!-- Contenedor Filtros -->
+    <section id="filters" class="content-filter-med w-full py-20 bg-gray-100">
+        <div class="filtered container mx-auto px-4 shadow-lg py-4">
+            <form method="GET" action="{% url 'reps-data' %}">
+        <!-- Aquí van los filtros -->
+          <div class="flex flex-wrap justify-between space-x-4">
+            <div class="relative z-0 mb-6 flex-1 max-w-[200px] border border-gray-300 rounded-md bg-white">
+              <input type="number" name="nit" id="nit" value="{{ request.GET.nit|default:'' }}" class="block py-2.5 px-0 w-full text-sm {% if request.GET.nit %}font-semibold text-[red]{% else %}text-black{% endif %} bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+              <label for="nit" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">NIT</label>
+            </div>
+            <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+              <input type="text" name="nombre" id="nombre" value="{{ request.GET.nombre|default:'' }}" class="block py-2.5 px-0 w-full text-sm {% if request.GET.nombre %}font-semibold text-[red]{% else %}text-black{% endif %} bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+              <label for="nombre" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Razón Social</label>
+            </div>
+            <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+              <input type="number" name="codigo_de_habilitacion" id="codigo_de_habilitacion" value="{{ request.GET.codigo_de_habilitacion|default:'' }}" class="block py-2.5 px-0 w-full text-sm {% if request.GET.codigo_de_habilitacion %}font-semibold text-[red]{% else %}text-black{% endif %} bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+              <label for="codigo_de_habilitacion" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Código de Habilitación</label>
+            </div>
+            <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+              <input type="text" name="serv_nombre" id="serv_nombre" value="{{ request.GET.serv_nombre|default:'' }}" class="block py-2.5 px-0 w-full text-sm {% if request.GET.serv_nombre %}font-semibold text-[red]{% else %}text-black{% endif %} bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+              <label for="serv_nombre" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Descripción del REPS</label>
+            </div>
+            <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+              <input type="text" name="grse_nombre" id="grse_nombre" value="{{ request.GET.grse_nombre|default:'' }}" class="block py-2.5 px-0 w-full text-sm {% if request.GET.grse_nombre %}font-semibold text-[red]{% else %}text-black{% endif %} bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+              <label for="grse_nombre" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Descripción del Grupo</label>
+            </div>
+          </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="numero_sede" class="block text-sm font-medium text-gray-700">Número Sede</label>
+              <select id="numero_sede" name="numero_sede" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.numero_sede %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for n in numeros_sedes.all %}
+                          <option value="{{ n }}" {% if n == request.GET.numero_sede %}selected{% endif %}>{{ n }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="departamento" class="block text-sm font-medium text-gray-700">Departamento</label>
+              <select id="departamento" name="departamento" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.departamento %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for d in departamentos.all %}
+                          <option value="{{ d }}" {% if d == request.GET.departamento %}selected{% endif %}>{{ d }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="municipio" class="block text-sm font-medium text-gray-700">Municipio</label>
+              <select id="municipio" name="municipio" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.municipio %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for m in municipios.all %}
+                          <option value="{{ m }}" {% if m == request.GET.municipio %}selected{% endif %}>{{ m }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="ese" class="block text-sm font-medium text-gray-700">ESE</label>
+              <select id="ese" name="ese" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.ese %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for e in eses.all %}
+                          <option value="{{ e }}" {% if e == request.GET.ese %}selected{% endif %}>{{ e }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="serv_codigo" class="block text-sm font-medium text-gray-700">REPS</label>
+              <select id="serv_codigo" name="serv_codigo" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.serv_codigo %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for r in serv_codigos.all %}
+                          <option value="{{ r.serv_codigo }}" {% if r.serv_codigo == request.GET.serv_codigo %}selected{% endif %}>{{ r.serv_codigo }} - {{ r.serv_nombre }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="grse_codigo" class="block text-sm font-medium text-gray-700">Grupos REPS</label>
+              <select id="grse_codigo" name="grse_codigo" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.grse_codigo %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in grupos.all %}
+                          <option value="{{ g.grse_codigo }}" {% if g.grse_codigo == request.GET.grse_codigo %}selected{% endif %}>{{ g.grse_codigo }} - {{ g.grse_nombre }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_intramural" class="block text-sm font-medium text-gray-700">Modalidad Intramural</label>
+              <select id="modalidad_intramural" name="modalidad_intramural" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_intramural %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in intramural.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_intramural %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_extramural" class="block text-sm font-medium text-gray-700">Modalidad Intramural</label>
+              <select id="modalidad_extramural" name="modalidad_extramural" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_intramural %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in extramural.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_extramural %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_unidad_movil" class="block text-sm font-medium text-gray-700">Modalidad Unidad Movil</label>
+              <select id="modalidad_unidad_movil" name="modalidad_unidad_movil" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_unidad_movil %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in unidad_movil.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_unidad_movil %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_domiciliario" class="block text-sm font-medium text-gray-700">Modalidad Domiciliario</label>
+              <select id="modalidad_domiciliario" name="modalidad_domiciliario" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_domiciliario %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in domiciliario.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_domiciliario %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_jornada_salud" class="block text-sm font-medium text-gray-700">Modalidad Jornada de Salud</label>
+              <select id="modalidad_jornada_salud" name="modalidad_jornada_salud" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_jornada_salud %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in jornada.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_jornada_salud %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_prestador_referencia" class="block text-sm font-medium text-gray-700">Modalidad Prestador Referencia</label>
+              <select id="modalidad_prestador_referencia" name="modalidad_prestador_referencia" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.telemedicina_interactiva %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in mpr.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_prestador_referencia %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_prestador_referencia_telemedicina_interactiva" class="block text-sm font-medium text-gray-700">Modalidad Telemedicina Interactiva</label>
+              <select id="modalidad_prestador_referencia_telemedicina_interactiva" name="modalidad_prestador_referencia_telemedicina_interactiva" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.telemedicina_no_interactiva %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in mprti.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_prestador_referencia_telemedicina_interactiva %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_prestador_referencia_telemedicina_no_interactiva" class="block text-sm font-medium text-gray-700">Modalidad Telemedicina no Interactiva</label>
+              <select id="modalidad_prestador_referencia_telemedicina_no_interactiva" name="modalidad_prestador_referencia_telemedicina_no_interactiva" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_tele_experticia %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in mprtni.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_prestador_referencia_telemedicina_no_interactiva %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_prestador_referencia_tele_experticia" class="block text-sm font-medium text-gray-700">Modalidad Tele Experticia</label>
+              <select id="modalidad_prestador_referencia_tele_experticia" name="modalidad_prestador_referencia_tele_experticia" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_tele_monitoreo %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in mprte.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_prestador_referencia_tele_experticia %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="modalidad_prestador_referencia_tele_monitoreo" class="block text-sm font-medium text-gray-700">Modalidad Tele Monitoreo</label>
+              <select id="modalidad_prestador_referencia_tele_monitoreo" name="modalidad_prestador_referencia_tele_monitoreo" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_tele_monitoreo %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in mprtm.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_prestador_referencia_tele_monitoreo %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-3 relative inline-block w-64">
+              <label for="complejidades" class="block text-sm font-medium text-gray-700">Complejidades</label>
+              <select id="complejidades" name="complejidades" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base {% if request.GET.modalidad_tele_monitoreo %}font-semibold text-[red]{% else %}text-gray-700{% endif %} focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                  <option value="">Selecciona...</option>
+                      {% for g in complejidades.all %}
+                          <option value="{{ g }}" {% if g == request.GET.modalidad_tele_monitoreo %}selected{% endif %}>{{ g }}</option>
+                      {% endfor %}
+              </select>
+            </div>
+            
+            <!-- Btn buscar !-->
+            <button type="submit" class="button-48" role="button"><span class="text">Buscar</span></button>
+          </form>
+        </div>
+    </section>
+    <!-- Contenedor Información -->
+    <section id="info-buttons" class="content-info w-full lg:w-3/10 py-2 space-y-4 bg-[#e5e8e8] shadow-lg">
+        <div class="content-bar container mx-auto px-4 flex justify-between items-center">        
+            <div class="flex-1">
+                <!-- Aquí van los labels de span y botones -->
+                <p>Registros encontrados <span id="result-query" class="font-semibold">{{ info_page|length }}</span></p>
+                <p>Prestadores encontrados <span id="result-query" class="font-semibold">{{ registros.paginator.count }}</span></p>
+                <p>Filtros Aplicados : 
+                    <span class="font-semibold">
+                        {% if filtros_aplicados %}
+                        {{ filtros_aplicados|join:", " }}
+                        {% else %}
+                        Ningún filtro aplicado
+                        {% endif %}
+                    </span>
+                </p>
+                {% if not filtros_aplicados and registros.paginator.count == 0 %}
+                <p><span class="font-semibold text-[#3030b1]">Actualizando Tabla REPS</span></p>
+                <p><span class="font-semibold text-[#339c33]">Espere un momento por favor ...</span></p>
+
+                {% elif registros.paginator.count == 0 %}
+                <p>Ultima Actualización <span class="font-semibold">05 de enero del 2026</span></p>
+                <p><span class="font-semibold text-[#b13030]">⚠ No se encontraron resultados con los filtros aplicados</span></p>
+
+                {% else %}
+                <p>Ultima Actualización <span class="font-semibold">05 de enero del 2026</span></p>
+                {% endif %}
+            </div>
+            <div class="ml-4">
+                <button id="toggle-filters" class="button-49" role="button">Ver Filtros</button>
+            </div>
+        </div>
+    </section>
+    <!-- Vencimientos -->
+    <section id="section-vencimientos" class="contenedor-vencimientos content-navidad relative overflow-auto w-full h-[70vh]">
+        {% include 'partials/vencimientos.html' %}
+    </section>
+    <!-- Contenedor Tabla -->
+    <section id="table-pagination" class="content-navidad w-full lg:w-7/10 py-2">
+        <div class="content-pagination-med container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl">
+            <!-- Título -->
+            <h1 class="text-3xl font-bold text-center my-6">REPS Data</h1>
+            <!-- Paginación -->
+            <div id="content-pagination" class="relative bg-transparent">
+                <form method="GET" action="">
+                    <div class="relative w-[200px] min-w-[200px] z-0 mb-0 flex-1 border border-gray-300 rounded-md bg-white">
+                        <input type="number" name="page" id="page" min="1" max="{{ registros.paginator.num_pages }}" data-total-pages="{{ registros.paginator.num_pages }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " oninput="updatePageLink()" />
+                        <label for="page" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">
+                            <p>Pagina <span id="page-number" class="font-bold">{{ registros.number }}</span> de <span class="font-semibold">{{ registros.paginator.num_pages }}</span></p>
+                        </label>
+                    </div>
+                    <div class="relative flex justify-end space-x-4 bg-transparent">
+                        <button id="btn-page" type="submit" onclick="loadPage(event)" class="buttons-pagination text-blue-500 font-semibold">Ir</a>
+                        <button id="btn-first" type="button" onclick="buttonFirst(event)" class="buttons-pagination text-blue-500 font-semibold">Primera</button>
+                        <button id="btn-previous" type="button" onclick="buttonPrevious(event)" class="buttons-pagination text-blue-500 font-semibold"><span id="previous" class="text-blue-500 font-semibold">1</span> Anterior</button>
+                        <button id="btn-next" type="button" onclick="buttonNext(event)" class="buttons-pagination text-blue-500 font-semibold">Siguiente <span id="next" class="text-blue-500 font-semibold">2</span></button>
+                        <button id="btn-last" type="button" onclick="buttonLast(event)" class="buttons-pagination text-blue-500 font-semibold">Última</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Tabla -->
+    <section class="content-table-med w-full py-4 shadow-xl flex justify-center items-center bg-[#f3f4f581]">
+        {% include 'partials/pss_reps_table.html' %}
+    </section>
+    {% include 'partials/alert.html' %}
+</section>
+
+<script src="{% static 'medicamentos/js/page-button-reps.js' %}"></script>
+
+{% endblock %}

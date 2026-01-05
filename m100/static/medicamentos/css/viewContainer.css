@@ -1,0 +1,35 @@
+#table-pagination {
+    max-height: 0;
+    overflow: hidden; /* Asegúrate de ocultar el contenido cuando está colapsado */
+    transition: max-height 1s ease; /* Asegúrate de que la transición esté aquí */
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}

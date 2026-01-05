@@ -1,0 +1,21 @@
+/* Para navegadores webkit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+    border-radius: 10px; /* Esquinas redondeadas */
+}
+
+::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Color de fondo del track */
+    border-radius: 10px; /* Esquinas redondeadas del track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #ff7b0075; /* Color del scroll */
+    border-radius: 10px; /* Esquinas redondeadas del scroll */
+}
+
+/* Para Firefox */
+.scrollbar {
+    scrollbar-width: thin; /* Tipo de scrollbar (delgado) */
+    scrollbar-color: #ff7b007e #f0f0f0; /* Color del scroll y color de fondo del track */
+}

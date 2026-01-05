@@ -1,0 +1,94 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block title %}
+  {{ page_title }}
+{% endblock %}
+
+{% block content %}
+
+<section class="content-view w-full py-0 bg-gray-50">
+    <canvas id="miGrafica" width="400" height="200"></canvas>
+</section>
+
+<script>
+  // 1) Gráfica con Chart.js
+  fetch("{% url 'proveedores_data' %}")
+    .then(response => response.json())
+    .then(data => {
+      const ctx = document.getElementById('miGrafica').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: 'Proveedores por Departamento',
+            data: data.values,
+            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        }
+      });
+    });
+
+  // 2) Mapa con Leaflet
+  const map = L.map('map').setView([4.570868, -74.297333], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // 3) Marcadores basados en lat/long
+  fetch("{% url 'proveedores_map_data' %}")
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(item => {
+        if (item.latitud && item.longitud) {
+            console.log(item.latitud, item.longitud);
+          const marker = L.marker([item.latitud, item.longitud]).addTo(map);
+          marker.on('click', () => {
+            document.getElementById('prov-nombre').innerText =
+              `Proveedor: ${item.nombre}, NIT: ${item.nit}, Depto: ${item.departamento}`;
+          });
+        }
+      });
+    });
+
+  // 4) Cargar y convertir el archivo TopoJSON
+  fetch("{% static 'geojson/colombia.topojson' %}")
+  .then(response => response.json())
+  .then(topoData => {
+    console.log("Topo data loaded: ", topoData);
+    console.log("Available objects:", Object.keys(topoData.objects));
+    console.log(JSON.stringify(topoData, null, 2));
+    // Por ejemplo, si ves algo como "COL_adm1" en la consola,
+    // entonces cambias la siguiente línea:
+    // const geojson = topojson.feature(topoData, topoData.objects.departamentos);
+
+    const geojson = topojson.feature(topoData, topoData.objects.COL_adm1); 
+    console.log("Geojson result:", geojson);
+
+    L.geoJson(geojson, {
+      style: {
+        color: '#f00',
+        weight: 2,
+        fillColor: '#008cff',
+        fillOpacity: 0.2
+      }
+    }).addTo(map);
+  })
+  .catch(err => console.error(err));
+</script>
+
+<div id="map" style="width: 100%; height: 600px;"></div>
+
+<div id="info-proveedor" style="margin-top: 20px;">
+  <h3>Información del proveedor:</h3>
+  <p id="prov-nombre">Haz clic en un marcador</p>
+</div>
+
+
+<script src="{% static 'medicamentos/js/page-button.js' %}"></script>
+
+{% endblock %}

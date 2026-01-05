@@ -1,0 +1,199 @@
+{% load static %}
+
+<link href='{% static "medicamentos/css/content-message.css" %}' rel="stylesheet"/>
+
+<!-- Contenedor para mensajes en la pagina -->
+<!-- <div id="banner-animals" class="banner-animals fixed right-[12%] top-[9%] justify-between items-left bg-[#f0c3c3d5] h-[130px] w-[400px] m-0 p-0 z-[9999]"> -->
+<div id="banner-animals" class="banner-animals fixed right-[12%] top-[9%] justify-between items-left bg-[#ffffffd5] h-[130px] w-[400px] m-0 p-0 z-[9999]">
+    <!-- Contenedor titulo y botones -->
+    <div class="banner-message">
+        <!-- Contenedor Header -->
+        <div class="message-header">
+            <!-- Titulo -->
+            <div class="nombre">¡ATENCIÓN!</div>
+            <!-- Opciones -->
+            <div class="banner-icons">
+                <div class="icon-button" id="mensaje-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                    </svg>
+                    <div class="tooltip">Mensaje</div>
+                </div>
+                <div class="icon-button" id="nota-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/>
+                    </svg>
+                    <div class="tooltip">Nota</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Contenido de opciones -->
+    <div class="banner-content" id="banner-content">
+        <div class="message-container" id="mensaje-container">
+            <div class="typing-text" id="mensaje-text"></div><span class="cursor" id="mensaje-cursor">|</span>
+        </div>
+        <div class="message-container" id="nota-container">
+            <div class="typing-text" id="nota-text"></div><span class="cursor" id="nota-cursor">|</span>
+        </div>
+    </div>
+</div>
+
+<!-- Pendiente migrar a archivo js independiente e inyectar json para mensajes -->
+<script>
+    class TypeWriter {
+        constructor(elementId, containerId, scrollContainerId, texts, speed = 80) {
+            this.element = document.getElementById(elementId);
+            this.container = document.getElementById(containerId);
+            this.scrollContainer = document.getElementById(scrollContainerId);
+            this.texts = texts;
+            this.speed = speed;
+            this.textIndex = 0;
+            this.charIndex = 0;
+            this.isDeleting = false;
+            this.isPaused = false;
+            this.isActive = false;
+            this.cursorId = elementId.includes('mensaje') ? 'mensaje-cursor' : 'nota-cursor';
+        }
+
+        scrollToBottom() {
+            if (this.scrollContainer && this.isActive) {
+                this.scrollContainer.scrollTop = this.scrollContainer.scrollHeight;
+            }
+        }
+
+        scrollToTop() {
+            if (this.scrollContainer && this.isActive && this.charIndex === 0) {
+                this.scrollContainer.scrollTop = 0;
+            }
+        }
+
+        type() {
+            if (!this.isActive) return;
+
+            const currentText = this.texts[this.textIndex];
+            
+            if (this.isPaused) {
+                setTimeout(() => {
+                    this.isPaused = false;
+                    this.type();
+                }, 2000);
+                return;
+            }
+
+            if (this.isDeleting) {
+                this.element.textContent = currentText.substring(0, this.charIndex - 1);
+                this.charIndex--;
+                
+                if (this.charIndex % 3 === 0) {
+                    this.scrollToTop();
+                }
+                
+                if (this.charIndex === 0) {
+                    this.isDeleting = false;
+                    this.textIndex = (this.textIndex + 1) % this.texts.length;
+                    this.scrollContainer.scrollTop = 0;
+                }
+            } else {
+                this.element.textContent = currentText.substring(0, this.charIndex + 1);
+                this.charIndex++;
+                
+                if (this.charIndex % 3 === 0) {
+                    this.scrollToBottom();
+                }
+                
+                if (this.charIndex === currentText.length) {
+                    this.isDeleting = true;
+                    this.isPaused = true;
+                }
+            }
+
+            const typingSpeed = this.isDeleting ? this.speed / 2 : this.speed;
+            setTimeout(() => this.type(), typingSpeed);
+        }
+
+        start() {
+            this.isActive = true;
+            this.charIndex = 0;
+            this.isDeleting = false;
+            this.element.textContent = '';
+            this.scrollContainer.scrollTop = 0;
+            this.type();
+        }
+
+        stop() {
+            this.isActive = false;
+        }
+    }
+
+    const mensajes = [
+        "Pendiente Dato del cumpleaños"
+    ];
+
+    const notas = [
+        "Pendiente Listado de Data completa cumpleaños"
+    ];
+    // const mensajes = [
+    //     "Nuevo pedido recibido desde la tienda online. El cliente está esperando confirmación del pedido #456122.",
+    //     "Cliente esperando respuesta sobre disponibilidad del producto solicitado.",
+    //     "Actualización disponible: Nueva versión del sistema con mejoras de rendimiento.",
+    //     "Recordatorio importante: Revisar inventario antes del cierre del día."
+    // ];
+
+    // const notas = [
+    //     "Revisar inventario de productos agotados y contactar con proveedores para reposición urgente.",
+    //     "Confirmar entrega programada para mañana en la mañana con el transportista.",
+    //     "Contactar proveedor principal sobre retraso en el último envío de mercancía.",
+    //     "Verificar datos del nuevo cliente registrado en el sistema esta mañana."
+    // ];
+
+    const mensajeWriter = new TypeWriter('mensaje-text', 'mensaje-container', 'banner-content', mensajes, 60);
+    const notasWriter = new TypeWriter('nota-text', 'nota-container', 'banner-content', notas, 60);
+
+    let currentActive = null;
+
+    const mensajeBtn = document.getElementById('mensaje-btn');
+    const notaBtn = document.getElementById('nota-btn');
+    const mensajeContainer = document.getElementById('mensaje-container');
+    const notaContainer = document.getElementById('nota-container');
+
+    mensajeBtn.addEventListener('click', () => {
+        if (currentActive === 'mensaje') {
+            mensajeBtn.classList.remove('active');
+            mensajeContainer.classList.remove('active');
+            mensajeWriter.stop();
+            currentActive = null;
+        } else {
+            if (currentActive === 'nota') {
+                notaBtn.classList.remove('active');
+                notaContainer.classList.remove('active');
+                notasWriter.stop();
+            }
+            
+            mensajeBtn.classList.add('active');
+            mensajeContainer.classList.add('active');
+            mensajeWriter.start();
+            currentActive = 'mensaje';
+        }
+    });
+
+    notaBtn.addEventListener('click', () => {
+        if (currentActive === 'nota') {
+            notaBtn.classList.remove('active');
+            notaContainer.classList.remove('active');
+            notasWriter.stop();
+            currentActive = null;
+        } else {
+            if (currentActive === 'mensaje') {
+                mensajeBtn.classList.remove('active');
+                mensajeContainer.classList.remove('active');
+                mensajeWriter.stop();
+            }
+            
+            notaBtn.classList.add('active');
+            notaContainer.classList.add('active');
+            notasWriter.start();
+            currentActive = 'nota';
+        }
+    });
+</script>

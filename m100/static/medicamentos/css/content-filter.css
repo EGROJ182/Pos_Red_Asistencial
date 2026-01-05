@@ -1,0 +1,21 @@
+.content-filter-med {
+    background-image: url('../../resources/contenedores.png');
+    background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: right;
+    /* mask-image: linear-gradient(black 80%, transparent); */
+}
+
+.content-filter-cups {
+    background-image: url('../../resources/banner.png');
+    background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: right;
+    /* mask-image: linear-gradient(black 80%, transparent); */
+}
+
+#filters {
+    max-height: 0;
+    overflow: hidden; /* Asegúrate de ocultar el contenido cuando está colapsado */
+    transition: max-height 1s ease; /* Asegúrate de que la transición esté aquí */
+}

@@ -1,0 +1,17 @@
+.spotify {
+    position: absolute;
+    top: -10%;
+    left: 85%;
+    transition: transform 0.8s ease-out;
+}
+
+.spotify:hover {
+    transform: scale(1.2);
+}
+
+@media screen and (max-width: 600px) {
+    .spotify {
+        top: -30px;
+        left: -2px;
+    }
+}

@@ -1,0 +1,90 @@
+{% load static %}
+
+{% load humanize %}
+
+<div id="medicamentos-table-container" class="container overflow-auto w-[90%] h-[70vh] bg-[#f3f4f562] rounded-xl shadow-xl">
+    <!-- Encabezados -->
+    <div class="sticky top-0 bg-[#f3f4f562] z-10 flex justify-between border-b border-gray-300 text-center font-bold min-w-[1024px]">
+        <p class="w-[5%] py-2">#</p>
+        <p class="w-[15%] py-2">Región</p>
+        <p class="w-[15%] py-2">Código del Departamento</p>
+        <p class="w-[15%] py-2">Departamento</p>
+        <p class="w-[15%] py-2">Código del Municipio</p>
+        <p class="w-[15%] py-2">Municipio</p>
+        <p class="w-[10%] py-2">Código DANE</p>
+        <p class="w-[10%] py-2">Zona Especial</p>
+    </div>
+    {% for data in dane %}
+    <!-- Filas -->
+    <div 
+        class="flex items-center border-b border-gray-300 text-center min-w-[1024px]">
+        <!-- Número de fila -->
+        <div class="w-[5%] flex justify-between py-2 border-r border-gray-300 relative group">
+            <p class="w-full py-2">{{ forloop.counter }}</p>
+            <div 
+                class="absolute z-50 hidden group-hover:block grid-cols-2 bg-gray-100 shadow-lg rounded-lg text-[{{ data.color }}] font-bold px-2 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 0; left: 140%; transform: translateX(-50%);"
+                data-expediente="{{ data.dane.id_dane }}">
+                <!-- Contenedor imagen mas informacion -->
+                <div class="flex w-[50px] justify-center">
+                    <img src="{% static 'resources/info2.gif' %}" alt="img-info" class="option-img h-10 cursor-pointer" data-expediente="{{ data.dane.id_dane }}">
+                </div>
+            </div>
+        </div>
+        <!-- Contenedor de mas informacion del otro canal del mismo expediente-->
+        <!-- <div 
+        id="info-{{ data.dane.id_dane }}"
+        class="informacion absolute z-50 hidden min-w-[1024px] grid-rows-6 bg-white shadow-lg rounded-3xl text-[{{ data.color }}] px-4 py-2 border border-gray-300"
+        style="top: 10; left: 50%; transform: translateX(-50%);"> -->
+        <!-- Contenido del contenedor -->
+        <!-- <div class="flex w-[115px] justify-start space-x-2 text-black items-center bg-white rounded-xl">
+            <img src="{% static 'resources/x.gif' %}" alt="img-close" class="option-img rounded-xl h-10 cursor-pointer" data-expediente="{{ data.dane.id_dane }}">
+            <p class="option-img cursor-pointer font-semibold" data-expediente="{{ data.dane.id_dane }}">Cerrar</p>
+        </div>
+        <div class="relative w-full justify-center space-x-2 text-orange-600 font-bold bg-white">
+            <p class="option-img">{{ data.dane.departamento }} - {{ data.dane.municipio }}</p>
+        </div>
+            <div class="sticky top-0 bg-white flex items-center justify-between text-center font-bold min-w-[1024px]">
+                <p class="w-[16.6%] py-2">Medicamento</p>
+                <p class="w-[16.6%] py-2">Canal</p>
+                <p class="w-[16.6%] py-2">Principio Activo</p>
+                <p class="w-[16.6%] py-2">Concentración</p>
+                <p class="w-[16.6%] py-2">Unidad Base</p>
+                <p class="w-[16.6%] py-2">Unidad de Dispensación</p>
+            </div>
+            <div class="flex items-center text-center bg-white">
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.medicamento }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.canal }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.principio_activo }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.concentracion }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.unidad_base }}</p>
+                <p class="w-[16.6%] py-2 border-gray-300 hover-trigger">{{ expediente.expediente.unidad_de_dispensacion }}</p>
+            </div>
+        </div> -->
+        <!-- Datos -->
+        <p class="w-[15%] py-2 border-r border-gray-300 hover-trigger">{{ data.dane.region }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">{{ data.dane.codigo_del_departamento }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">{{ data.dane.departamento }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">{{ data.dane.codigo_del_municipio }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">{{ data.dane.municipio }}</p>
+        <div class="w-[10%] flex justify-center py-2 border-r border-gray-300 relative group">
+            <p class="w-full py-2 border-r border-gray-300 text-[{{ data.color }}] font-bold">{{ data.dane.codigo_dane }}</p>
+              <!-- Contenedor de consulta (inicialmente oculto, dinámico) -->
+            <div 
+                class="absolute z-10 hidden w-[320px] group-hover:block bg-gray-100 shadow-lg rounded-lg text-[{{ data.color }}] font-bold px-4 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 10%; left: -40%; transform: translateX(-50%);">
+                {{ data.dane.codigo_dane }} - {{ data.dane.municipio }} ({{ data.dane.departamento }})
+            </div>
+        </div>
+        <div class="w-[10%] flex justify-center py-2 border-r border-gray-300 relative group">
+            <img src="{% static 'resources/' %}{{ data.img }}" alt="img-zona" class="option-img h-10">
+            <div 
+                class="absolute hidden w-[210px] group-hover:block bg-gray-100 shadow-lg rounded-lg text-[{{ data.color }}] font-bold px-4 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 10%; left: -95%; transform: translateX(-50%);">
+                {{ data.dane.zona_especial }} es Zona Especial
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script src="{% static 'medicamentos/js/mas-info-termometro.js' %}"></script>

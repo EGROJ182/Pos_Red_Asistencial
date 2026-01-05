@@ -1,0 +1,59 @@
+.btn-med {
+    font-weight: 500;
+    transition: transform 0.3s ease-in-out;
+}
+.btn-med:hover {
+    color: #ff7c00;
+    text-shadow: white 2px 2px 2px;
+    transform: scale(1.1);
+}
+
+.options-menu-desktop {
+    transition: transform 0.3s ease-in-out, color 1.2s ease-in-out, font-weight 0.2s ease-in-out, text-shadow 0.7s ease-in-out;
+}
+
+.options-menu-desktop:hover {
+    text-decoration: none;
+    color: #ff7c00;
+    font-weight: 500;
+    transform: scale(1.08);
+    width: 300px;
+    margin-left: 5%;
+    text-shadow: rgba(0, 0, 0, 0.534) 1px 1px 4px;
+    border-radius: 20px 1px 20px 1px;
+
+}
+
+.options-menu-movil {
+    transition: transform 0.3s ease-in-out;
+}
+
+.options-menu-movil:hover {
+    background: white;
+    text-decoration: none;
+    color: #ff7c00;
+    font-weight: 500;
+    transform: scale(1.05);
+    margin-left: 5%;
+    text-shadow: rgba(0, 0, 0, 0.534) 1px 1px 4px;
+    border-radius: 20px 1px 20px 1px;
+}
+
+.btn-close-movil:hover, .btn-open-movil:hover {
+    font-weight: bold;
+    transform: scale(1.1);
+    margin-left: -5%;
+}
+
+.option-img, .logo-img, .options-menu-movil, .social-img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.option-img:hover, .logo-img:hover, .social-img:hover {
+    /* filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.5)); */
+    transform: scale(1.2);
+}
+
+.content-submenu {
+    border-radius: 5px 30px 10px 20px;
+}

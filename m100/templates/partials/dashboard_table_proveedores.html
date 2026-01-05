@@ -1,0 +1,20 @@
+<table id="tablaPrestadores" class="table table-striped table-hover">
+    <thead>
+      <tr class="sticky top-0 z-20 bg-gray-50">
+        <th class="text-center w-auto max-w-[100px]">Item</th>
+        <th class="text-center w-auto min-w-[150px]">NIT</th>
+        <th class="w-auto min-w-[300px]">Razón Social</th>
+        <th class="text-center w-auto min-w-[100px]">Número Contrato</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sh in positiva %}
+        <tr class="table-row" data-filter-key="nit" data-filter-value="{{ sh.nit }}">
+          <td class="text-center">{{ forloop.counter }}</td>
+          <td class="text-center">{{ sh.nit }}</td>
+          <td>{{ sh.nombre }}</td>
+          <td class="w-auto min-w-[150px] text-center">{{ sh.numero_contrato }}-{{ sh.year_contrato }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>

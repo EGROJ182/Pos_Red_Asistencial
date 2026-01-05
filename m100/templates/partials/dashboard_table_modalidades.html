@@ -1,0 +1,32 @@
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="sticky top-0 z-20 bg-gray-50 text-center">
+        <th>REPS</th>
+        <th class="text-left">Descripción REPS</th>
+        <th>Intramural</th>
+        <th>Unidad Movil</th>
+        <th>Domiciliario</th>
+        <th>Jornada de Salud</th>
+        <th>Telemedicina Interactiva</th>
+        <th>Telemedicina no Interactiva</th>
+        <th>Tele Experticia</th>
+        <th>Tele Monitoreo</th>
+        </tr>
+    </thead>
+<tbody id="tablaModalidades">
+    {% for sede in modalidades_sede %}
+        <tr class="text-center" class="table-row" data-filter-key="modalidad_intramural" data-filter-value="{{ sede.modalidad_intramural }}">
+            <td>{{ sede.serv_codigo }}</td>
+            <td class="text-left">{{ sede.serv_nombre }}</td>
+            <td>{{ sede.modalidad_intramural }}</td>
+            <td>{{ sede.modalidad_unidad_movil }}</td>
+            <td>{{ sede.modalidad_domiciliario }}</td>
+            <td>{{ sede.modalidad_jornada_salud }}</td>
+            <td>{{ sede.telemedicina_interactiva }}</td>
+            <td>{{ sede.telemedicina_no_interactiva }}</td>
+            <td>{{ sede.modalidad_tele_experticia }}</td>
+            <td>{{ sede.modalidad_tele_monitoreo }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>

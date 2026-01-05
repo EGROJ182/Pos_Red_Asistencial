@@ -1,0 +1,24 @@
+<table id="tablaSedes" class="table table-striped table-hover">
+    <thead>
+      <tr class="sticky top-0 z-20 bg-gray-50">
+        <th class="text-center w-auto max-w-[100px]">Item</th>
+        <th class="text-center w-auto min-w-[150px]">Código de Habilitación</th>
+        <th class="w-auto min-w-[300px]">Nombre Sede</th>
+        <th class="text-center w-auto min-w-[100px]">Número Sede</th>
+        <th class="text-center w-auto min-w-[100px]">Departamento</th>
+        <th class="text-center w-auto min-w-[100px]">Municipio</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sh in sedes_page %}
+        <tr class="table-row" data-filter-key="codigo_de_habilitacion" data-filter-value="{{ sh.codigo_de_habilitacion }}">
+          <td class="text-center">{{ forloop.counter }}</td>
+          <td class="text-center">{{ sh.codigo_de_habilitacion }}</td>
+          <td>{{ sh.sede_nombre }}</td>
+          <td class="text-center">{{ sh.numero_sede }}</td>
+          <td class="text-center">{{ sh.departamento }}</td>
+          <td class="text-center">{{ sh.municipio }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>

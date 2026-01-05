@@ -1,0 +1,102 @@
+{% load humanize %}
+
+<table class="table-auto border-collapse border border-gray-300 text-[14px]">
+    <thead class="text-white font-bold text-sm text-center">
+        <tr class="text-center">
+            <th class="sticky top-0 left-0 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Item</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Tipo</th>
+            <th class="sticky top-0 w-auto min-w-[300px] left-20 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Descripción del Medicamento</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Marca</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Principio Activo</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Concentración</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Forma Farmacéutica</th>
+            <th class="sticky top-0 w-auto min-w-[150px] left-[380px] px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">CUM</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Presentación Comercial</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Registro Sanitario</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Estado del Registro</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">ATC</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Expediente</th>
+            <th class="sticky top-0 w-auto min-w-[100px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Consecutivo</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Codigo CUM Homologo</th>
+            <th class="sticky top-0 w-auto min-w-[100px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Alianza</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Laboratorio Alianza</th>
+            <th class="sticky top-0 w-auto min-w-[100px] left-[529.5px] px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Canal</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Cantidad Minima de Dispensación</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Variable Cantidad Unidad Minima Negociada</th>
+            <th class="sticky top-0 w-auto min-w-[180px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Valor Medicamento Regulado</th>
+            <th class="sticky top-0 w-auto min-w-[180px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Tarifa Pactada por Unidad sin IVA</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Medicamento de Control Especial</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Medicamento Monopolio del Estado</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">NIT del Proveedor</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Razón Social del Proveedor Pactado</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Número del Acta / Inicial</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Fecha Pactada</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Validador Acta Duplicada</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Circular Valor Regulado</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Precio Maximo Final Institucional</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Precio Maximo Final Comercial</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Estado del Invima</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Validador Precio Mismo Canal</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Precio Regulado Institucional 2022</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[red] z-10">Novedades</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for medicamento in medicamentos %}
+        <tr class="bg-white border-b">
+            <td class="sticky left-0 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ forloop.counter }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.tipo }}</td>
+            <td class="sticky left-20 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-[{{ medicamento.color }}]">{{ medicamento.medicamento.descripcion_medicamento }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.marca }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.principio_activo }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.concentracion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.forma_farmaceutica }}</td>
+            <td class="sticky left-[380px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.cum }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-[{{ medicamento.color }}]">{{ medicamento.medicamento.presentacion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.registro_sanitario }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.estado_registro }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.atc }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.expediente }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.consecutivo }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.codigo_cum_homologo }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.alianza }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.laboratorio_alianza }}</td>
+            <td class="sticky left-[529.5px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.canal }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.cantidad_minima_de_dispensacion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.variable_cantidad_unidad_minima_negociada }}</td>
+            {% if medicamento.medicamento.valor_medicamento_regulado == "0" %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.valor_medicamento_regulado }}</td>
+            {% else %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.valor_medicamento_regulado|floatformat:2|intcomma }}</td>
+            {% endif %}
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.tarifa_pactada_por_unidad_sin_iva|floatformat:2|intcomma }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.medicamentos_de_control_especial }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.medicamentos_monopolio_del_estado }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.nit_proveedor }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-[{{ medicamento.color }}]">{{ medicamento.medicamento.nombre_del_proveedor_pactado }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.numero_acta_inicial }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.fecha_pactada }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.validador_acta_duplicada }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.circular_valor_regulado }}</td>
+            {% if medicamento.medicamento.precio_maximo_final_institucional.lower == "no esta regulado" or medicamento.medicamento.precio_maximo_final_institucional.lower == "no regulado" %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.precio_maximo_final_institucional }}</td>
+            {% else %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.precio_maximo_final_institucional|floatformat:2|intcomma }}</td>
+            {% endif %}
+            {% if medicamento.medicamento.precio_maximo_final_comercial.lower == "no esta regulado" or medicamento.medicamento.precio_maximo_final_comercial.lower == "no regulado" %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.precio_maximo_final_comercial }}</td>
+            {% else %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.precio_maximo_final_comercial|floatformat:2|intcomma }}</td>
+            {% endif %}
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.status_invima }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.validador_precio_mismo_canal }}</td>
+            {% if medicamento.medicamento.precio_regulado_institucional_2022.lower == "no esta regulado" or medicamento.medicamento.precio_regulado_institucional_2022.lower == "no regulado" %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.precio_regulado_institucional_2022 }}</td>
+            {% else %}
+                <td class="px-4 py-2 border border-gray-300 text-center text-[{{ medicamento.color }}]">$ {{ medicamento.medicamento.precio_regulado_institucional_2022|floatformat:2|intcomma }}</td>
+            {% endif %}
+            <td class="px-4 py-2 border font-bold border-gray-300 text-center text-[{{ medicamento.color }}]">{{ medicamento.medicamento.novedad }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

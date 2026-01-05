@@ -1,0 +1,91 @@
+.vista-movil {
+    position: relative;  /* Equivalente a 'relative' */
+    display: flex;       /* Equivalente a 'flex' */
+    justify-content: center;  /* Equivalente a 'justify-center' */
+    align-items: center;      /* Equivalente a 'items-center' */
+    height: 550px;
+}
+
+.mapa-container {
+    background-image: url('../../resources/compass.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px;
+    box-shadow: black 1px 5px 18px;
+    display: flex;       /* Equivalente a 'flex' */
+    justify-content: center;  /* Equivalente a 'justify-center' */
+    align-items: center;      /* Equivalente a 'items-center' */
+    width: 90%;
+}
+
+.mapa {
+    height: 400px;
+    width: 100%;
+    border-radius: 0px 0px 20px 0px;
+}
+
+.content-proveedores-mapa {
+    border: #ff7c00 solid 5px;
+    width: 30%;
+}
+
+.content-mapa {
+    border: #ff7c00 solid 5px;
+    width: 70%;
+    border-radius: 20px 10px 20px 0px;
+}
+
+.proveedor-mapa {
+    text-align: center;
+    background: white;
+    scale: 0.9;
+    transition: transform 0.5s ease-out, border-radius 0.5s ease-out, background 0.5s ease-out, color 0.5s ease-out, font-size 0.5s ease-out;
+    border-radius: 0px 30px 20px 10px;
+    box-shadow: black 1px 5px 15px;
+}
+
+.proveedor-mapa:hover {
+    border-radius: 10px 20px 30px 0px;
+    background: #ff7c00;
+    color: white;
+    font-weight: 500;
+    font-size: 11px;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .vista-movil {
+        flex-direction: row;
+        height: 900px;
+    }
+    .mapa-container {
+        /* display: grid;       Equivalente a 'flex' */
+        justify-content: center;  /* Equivalente a 'justify-center' */
+        align-items: center;      /* Equivalente a 'items-center' */
+        flex-direction: column;
+        width: 95%;
+    }
+    .mapa {
+        height: 370px;
+    }
+    .content-mapa {
+        width: 100%;
+    }
+    .content-proveedores-mapa {
+        width: 100%;
+    }
+}
+
+.title-map {
+    text-shadow: black 1px 3px 5px;
+}
+
+.title-proveedores-mapa {
+    top: 0;
+    position: sticky;
+    z-index: 10;
+    background: #ff7c00;
+    color: white;
+    padding: 10px;
+    border-radius: 0px 0px 10px 10px;
+}

@@ -1,0 +1,48 @@
+<table class="table-auto border-collapse border border-gray-300 text-[14px]">
+    <thead class="text-white font-bold text-sm text-center">
+        <tr class="text-center">
+            <th class="sticky top-0 left-0 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Item</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">NIT Proveedor</th>
+            <th class="sticky top-0 w-auto min-w-[300px] left-20 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Razón Social</th>
+            <th class="sticky top-0 w-auto min-w-[250px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Tipo de Proveedor</th>
+            <th class="sticky top-0 w-auto min-w-[180px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Número & Año de Contraro</th>
+            <th class="sticky top-0 w-auto min-w-[250px] px-4 py-2 border border-gray-300 bg-[red] z-10">Fecha Inicio de Contrato</th>
+            <th class="sticky top-0 w-auto min-w-[250px] px-4 py-2 border border-gray-300 bg-[red] z-10">Fecha Fin de Contrato</th>
+            <th class="sticky top-0 w-auto min-w-[250px] left-[380px] px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Sucursal</th>
+            <th class="sticky top-0 w-auto min-w-[250px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Supervisor</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Dirección</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Categoría Cuentas Médicas</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Departamento</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Municipio</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Código de Habilitación</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Número de Sede</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Dirección</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Telefono</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proveedor in data_page %}
+        <tr class="bg-white border-b">
+            <td class="sticky left-0 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center">{{ forloop.counter }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.nit }}</td>
+            <td class="sticky left-20 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ proveedor.nombre }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ proveedor.tipo_proveedor }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.numero_contrato }} - {{ proveedor.year_contrato }}</td>
+            <td class="px-4 py-2 border font-bold border-gray-300 text-center">{{ proveedor.fecha_inicio_contrato }}</td>
+            <td class="px-4 py-2 border font-bold border-gray-300 text-center">{{ proveedor.fecha_fin_contrato }}</td>
+            <td class="sticky left-[380px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center">{{ proveedor.sucursal }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.supervisor }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ proveedor.direccion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.categoria_cuentas_medicas }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.departamento }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.municipio }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.codigo_de_habilitacion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.numero_sede }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.direccion }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.telefono }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ proveedor.email }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+<table class="table-auto border-collapse border border-gray-300 text-[14px]">
+    <thead class="text-white font-bold text-sm text-center">
+        <tr class="text-center">
+            <th class="sticky top-0 w-auto left-0 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Item</th>
+            <th class="sticky top-0 w-auto min-w-[150px] left-20 px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Código CUPS</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Codigo Homologo Manual</th>
+            <th class="sticky top-0 w-auto min-w-[400px] left-[230px] px-4 py-2 border border-gray-300 bg-[#0b5494c7] z-20">Descripcion del CUPS</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Departamento</th>
+            <th class="sticky top-0 w-auto min-w-[220px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Municipio</th>
+            <th class="sticky top-0 w-auto min-w-[300px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Prestador</th>
+            <th class="sticky top-0 w-auto min-w-[150px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">NIT</th>
+            <th class="sticky top-0 w-auto min-w-[200px] px-4 py-2 border border-gray-300 bg-[#ff7c00] z-10">Número & Año de Contrato</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cup in cups %}
+        <tr class="bg-white border-b">
+            <td class="sticky left-0 w-auto z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center">{{ forloop.counter }}</td>
+            <td class="sticky left-20 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300 text-center">{{ cup.codigo_cups }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ cup.codigo_homologo_manual }}</td>
+            <td class="sticky left-[230px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ cup.descripcion_del_cups }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ cup.departamento }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ cup.municipio }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ cup.nombre }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ cup.nit }}</td>
+            <td class="px-4 py-2 border border-gray-300 text-center">{{ cup.numero_contrato }} - {{ cup.year_contrato }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

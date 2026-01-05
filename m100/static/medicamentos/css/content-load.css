@@ -1,0 +1,45 @@
+.content-data-load {
+    background-image: url('../../resources/contenedores.png');
+    background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: right;
+}
+
+.content-load-med {
+    background-image: url('../../resources/fondosvg.svg');
+    background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: right;
+}
+
+.content-file {
+    background-image: url('../../resources/xls.gif');
+    background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.title-content-load {
+    color: #ff7900;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 40px;
+    height: 40px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

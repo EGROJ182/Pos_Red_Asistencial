@@ -1,0 +1,92 @@
+{% load static %}
+
+{% load humanize %}
+
+<div id="medicamentos-table-container" class="container overflow-auto w-[90%] h-[70vh] bg-[#f3f4f562] rounded-xl shadow-xl">
+    <!-- Encabezados -->
+    <div class="sticky top-0 bg-[#f3f4f562] z-10 flex justify-between border-b border-gray-300 text-center font-bold min-w-[1024px]">
+        <p class="w-[5%] py-2">#</p>
+        <p class="w-[15%] py-2">Expediente</p>
+        <p class="w-[20%] py-2">Nombre Comercial</p>
+        <p class="w-[15%] py-2">Medicamento</p>
+        <p class="w-[10%] py-2">Canal</p>
+        <p class="w-[15%] py-2">Precio Total {{ cantidad }} Unidades</p>
+        <p class="w-[15%] py-2">Precio Unidad</p>
+        <p class="w-[10%] py-2">Factores de Precio</p>
+        <p class="w-[10%] py-2">Fabricante</p>
+    </div>
+    {% for expediente in expedientes %}
+    <!-- Filas -->
+    <div 
+        class="flex items-center border-b border-gray-300 text-center min-w-[1024px]">
+        <!-- Número de fila -->
+        <div class="w-[8%] flex justify-between py-2 border-r border-gray-300 relative group">
+            <p class="w-full py-2">{{ forloop.counter }}</p>
+            <div 
+                class="absolute z-50 hidden group-hover:block grid-cols-2 bg-gray-100 shadow-lg rounded-lg text-[{{ expediente.color }}] font-bold px-2 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 0; left: 140%; transform: translateX(-50%);"
+                data-expediente="{{ expediente.expediente.id_termometro }}">
+                <!-- Contenedor imagen mas informacion -->
+                <div class="flex w-[50px] justify-center">
+                    <img src="{% static 'resources/info2.gif' %}" alt="img-info" class="option-img h-10 cursor-pointer" data-expediente="{{ expediente.expediente.id_termometro }}">
+                </div>
+            </div>
+        </div>
+        <!-- Contenedor de mas informacion del otro canal del mismo expediente-->
+        <div 
+        id="info-{{ expediente.expediente.id_termometro }}"
+        class="informacion absolute z-50 hidden min-w-[1024px] grid-rows-6 bg-white shadow-lg rounded-3xl text-[{{ expediente.color }}] px-4 py-2 border border-gray-300"
+        style="top: 10; left: 50%; transform: translateX(-50%);">
+        <!-- Contenido del contenedor -->
+        <div class="flex w-[115px] justify-start space-x-2 text-black items-center bg-white rounded-xl">
+            <img src="{% static 'resources/x.gif' %}" alt="img-close" class="option-img rounded-xl h-10 cursor-pointer" data-expediente="{{ expediente.expediente.id_termometro }}">
+            <p class="option-img cursor-pointer font-semibold" data-expediente="{{ expediente.expediente.id_termometro }}">Cerrar</p>
+        </div>
+        <div class="relative w-full justify-center space-x-2 text-orange-600 font-bold bg-white">
+            <p class="option-img">{{ expediente.expediente.expediente_invima }} - {{ expediente.expediente.medicamento }}</p>
+        </div>
+            <div class="sticky top-0 bg-white flex items-center justify-between text-center font-bold min-w-[1024px]">
+                <p class="w-[16.6%] py-2">Medicamento</p>
+                <p class="w-[16.6%] py-2">Canal</p>
+                <p class="w-[16.6%] py-2">Principio Activo</p>
+                <p class="w-[16.6%] py-2">Concentración</p>
+                <p class="w-[16.6%] py-2">Unidad Base</p>
+                <p class="w-[16.6%] py-2">Unidad de Dispensación</p>
+            </div>
+            <div class="flex items-center text-center bg-white">
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.medicamento }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.canal }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.principio_activo }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.concentracion }}</p>
+                <p class="w-[16.6%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.unidad_base }}</p>
+                <p class="w-[16.6%] py-2 border-gray-300 hover-trigger">{{ expediente.expediente.unidad_de_dispensacion }}</p>
+            </div>
+        </div>
+        <!-- Datos -->
+        <p class="w-[15%] py-2 border-r border-gray-300 hover-trigger">{{ expediente.expediente.expediente_invima }}</p>
+        <p class="w-[20%] py-2 border-r border-gray-300">{{ expediente.expediente.nombre_comercial }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">{{ expediente.expediente.medicamento }}</p>
+        <p class="w-[10%] py-2 border-r border-gray-300">{{ expediente.expediente.canal }}</p>
+        <p class="w-[15%] py-2 border-r border-gray-300">$ {{ expediente.total|floatformat:2|intcomma }}</p>
+        <div class="w-[15%] flex justify-center py-2 border-r border-gray-300 relative group">
+            <p class="w-full py-2 border-r border-gray-300 text-[{{ expediente.color }}] font-bold">$ {{ expediente.expediente.precio_por_tableta|floatformat:2|intcomma }}</p>
+              <!-- Contenedor de consulta (inicialmente oculto, dinámico) -->
+            <div 
+                class="absolute z-10 items-center hidden group-hover:block bg-gray-100 shadow-lg rounded-lg text-[{{ expediente.color }}] font-bold px-4 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: -30px; left: 140%; transform: translateX(-50%);">
+                Precio Unidad + 12% Administrativo: $ {{ expediente.precio_con_porcentaje|floatformat:2|intcomma }}
+            </div>
+        </div>
+        <div class="w-[10%] flex justify-center py-2 border-r border-gray-300 relative group">
+            <img src="{% static 'resources/' %}{{ expediente.expediente.factores_precio }}.png" alt="img-factor" class="option-img h-10">
+            <div 
+                class="absolute hidden group-hover:block bg-gray-100 shadow-lg rounded-lg text-[{{ expediente.color }}] font-bold px-4 py-2 border border-gray-300 transition-all duration-[2s] ease-in-out transform scale-y-0 origin-top"
+                style="top: 0; left: 140%; transform: translateX(-50%);">
+                {{ expediente.expediente.factores_precio }}
+            </div>
+        </div>
+        <p class="w-[10%] py-2">{{ expediente.expediente.fabricante }}</p>
+    </div>
+    {% endfor %}
+</div>
+<script src="{% static 'medicamentos/js/mas-info-termometro.js' %}"></script>

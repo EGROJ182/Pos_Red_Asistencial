@@ -1,0 +1,44 @@
+.content-div-actas {
+    background-image: url('../../resources/contenedores2.svg');
+    background-size: clamp(min-content, contain, max-content); /* Hace que la imagen cubra todo el contenedor */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center;
+}
+
+.title {
+    border-radius: 20px 20px 5px 5px;
+}
+
+.subtitle {
+    border-radius: 5px 5px 20px 20px;
+}
+
+.subtitle, .title {
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background: #ff7c00;
+    color: white;
+    padding: 1%;
+    box-shadow: rgba(0, 0, 0, 0.349) 0px 3px 8px;
+}
+
+.acta-item {
+    text-align: center;
+    background: rgb(255, 255, 255);
+    color: #ff7c00;
+    transform: scale(0.9);
+    transition: transform 0.6s ease-in-out, text-shadow 1s ease-in-out, background 1.5s ease-in-out, font-size 1s ease-in-out, color 1.5s ease-in-out, text-align 1.5s ease-in-out;
+    border-radius: 50px 5px 25px 15px;
+}
+
+.acta-item:hover {
+    background: #ff7c00;
+    color: white;
+    text-align: center;
+    transform: scale(1);
+    font-size: 16px;
+    text-shadow: black 1px 1px 2px;
+    border-radius: 25px 15px 50px 5px;
+}

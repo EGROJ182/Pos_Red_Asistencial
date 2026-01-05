@@ -1,0 +1,130 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block title %} {{ page_title }} {% endblock %}
+
+{% block content %}
+<section class="content-view w-full py-0 bg-gray-50">
+    <!-- Opciones CUPS -->
+    <div class="content-options flex flex-wrap space-x-4 space-y-0 p-0 m-0 py-0 px-0">
+        <div class="relative ml-4 top-3 left-0">
+            <button class="options-med button-50">Consultas</button>
+        </div>
+        <div class="relative ml-4 top-3 left-0">
+            <button class="options-med button-50">M. P. M.</button>
+        </div>
+        <div class="relative ml-4 top-3 left-0">
+            <button class="options-med button-50">Cargue</button>
+        </div>
+    </div>
+    <!-- Contenedor Filtros -->
+    <section id="filters" class="content-filter-cups w-full py-20 bg-gray-100">
+        <div class="filtered container mx-auto px-4 shadow-lg py-4">
+            <form method="GET" action="{% url 'cups' %}">
+            <!-- Aquí van los filtros -->
+            <div class="flex flex-wrap justify-between space-x-4">
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="codigo_cups" id="codigo_cups" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="codigo_cups" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">CUPS</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="text" name="descripcion_del_cups" id="descripcion_del_cups" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="descripcion_del_cups" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">Descripción CUPS</label>
+                </div>
+                <div class="relative z-0 mb-6 flex-1 min-w-[200px] border border-gray-300 rounded-md bg-white">
+                    <input type="number" name="nit" id="nit" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                    <label for="nit" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">NIT Prestador</label>
+                </div>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="departamento" class="block text-sm font-medium text-gray-700">Departamento</label>
+                <select id="departamento" name="departamento" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for departamento in departamentos.all %}
+                            <option value="{{ departamento }}">{{ departamento }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="municipio" class="block text-sm font-medium text-gray-700">Municipio</label>
+                <select name="municipio" id="municipio" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for municipio in municipios.all %}
+                            <option value="{{ municipio }}">{{ municipio }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            <div class="relative inline-block w-64">
+                <label for="nombre" class="block text-sm font-medium text-gray-700">Prestador Contratado</label>
+                <select name="nombre" id="nombre" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-base text-gray-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500">
+                    <option value="">Selecciona...</option>
+                        {% for prestador in prestadores.all %}
+                            <option value="{{ prestador }}">{{ prestador }}</option>
+                        {% endfor %}
+                </select>
+            </div>
+            
+            <!-- Btn buscar !-->
+            <button type="submit" class="button-48" role="button"><span class="text">Buscar</span></button>
+        </form>
+        </div>
+    </section>
+    <!-- Contenedor Información -->
+    <section id="info-buttons" class="content-info w-full lg:w-3/10 py-4 bg-[#e5e8e8] shadow-lg">
+        <div class="content-bar container mx-auto px-4 flex justify-between items-center">        
+            <div class="flex-1">
+                <!-- Aquí van los labels de span y botones -->
+                <p>Registros encontrados <span id="result-query" class="font-semibold">{{ cups.paginator.count }}</span></p>
+                <p>Filtros Aplicados : 
+                    <span class="font-semibold">
+                        {% if filtros_aplicados %}
+                        {{ filtros_aplicados|join:", " }}
+                        {% else %}
+                        Ningún filtro aplicado
+                        {% endif %}
+                    </span>
+                </p>
+                <p>Ultima Actualización <span class="font-semibold">28 de Octubre 2024</span></p>
+            </div>
+            <div class="ml-4">
+                <button id="toggle-filters" class="button-49" role="button">Ver Filtros</button>
+            </div>
+        </div>
+    </section>
+   <!-- Contenedor Tabla -->
+   <section id="table-pagination" class="content-navidad w-full lg:w-7/10 py-2">
+    <div class="content-pagination-cups container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl">
+        <!-- Título -->
+            <h1 class="text-3xl font-bold text-center my-6">CUPS Contratados</h1>
+            <!-- Paginación -->
+            <div id="content-pagination" class="relative bg-transparent">
+                <form method="GET" action="">
+                    <div class="relative w-[200px] min-w-[200px] z-0 mb-0 flex-1 border border-gray-300 rounded-md bg-white">
+                        <input type="number" name="page" id="page" min="1" max="{{ info_page.paginator.num_pages }}" data-total-pages="{{ info_page.paginator.num_pages }}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-gray-100 border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " oninput="updatePageLink()" />
+                        <label for="page" class="absolute font-medium text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 left-0 origin-[0_0] bg-gray-100 px-1 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:-translate-y-5 peer-focus:scale-75">
+                            <p>Pagina <span id="page-number" class="font-bold">{{ info_page.number }}</span> de <span class="font-semibold">{{ info_page.paginator.num_pages }}</span></p>
+                        </label>
+                    </div>
+                    <div class="relative flex justify-end space-x-4 bg-transparent">
+                        <button id="btn-page" type="submit" onclick="loadPage(event)" class="buttons-pagination text-blue-500 font-semibold">Ir</a>
+                        <button id="btn-first" type="button" onclick="buttonFirst(event)" class="buttons-pagination text-blue-500 font-semibold">Primera</button>
+                        <button id="btn-previous" type="button" onclick="buttonPrevious(event)" class="buttons-pagination text-blue-500 font-semibold"><span id="previous" class="text-blue-500 font-semibold">1</span> Anterior</button>
+                        <button id="btn-next" type="button" onclick="buttonNext(event)" class="buttons-pagination text-blue-500 font-semibold">Siguiente <span id="next" class="text-blue-500 font-semibold">2</span></button>
+                        <button id="btn-last" type="button" onclick="buttonLast(event)" class="buttons-pagination text-blue-500 font-semibold">Última</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Tabla -->
+    <section class="content-table-cups w-full py-4 shadow-xl flex justify-center items-center bg-[#f3f4f581]">
+        <div id="medicamentos-table-container" class="overflow-x-auto w-[90%] h-[70vh] bg-[#f3f4f562] rounded-xl shadow-xl">
+            {% include 'partials/cups_table.html' %}
+        </div>
+    </section>
+</section>
+
+<script src="{% static 'medicamentos/js/page-button.js' %}"></script>
+
+{% endblock %}

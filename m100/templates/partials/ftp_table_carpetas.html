@@ -1,0 +1,87 @@
+<div class="container mx-auto p-6 h-[70vh] w-[100%] overflow-y-auto">
+    <div class="sticky top-0 mb-4 px-4 py-3 text-center font-semibold bg-[#3b83f66b] text-white rounded-lg shadow-md z-10">
+    <!-- <div class="sticky top-0 mb-4 px-4 py-3 text-center font-semibold bg-blue-600 text-white rounded-lg shadow-md z-10"> -->
+        <p class="text-lg">📁 Navegación en Carpetas</p>
+        <p class="text-sm opacity-90">Ruta: {{ ruta_actual|default:"/" }}</p>
+    </div>
+    
+    {% if error_message %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <strong>Error:</strong> {{ error_message }}
+    </div>
+    {% endif %}
+    
+    <div class="bg-white shadow-md rounded-lg p-4">
+        <h2 class="text-xl font-bold mb-4 text-gray-800 border-b pb-2">
+            Carpetas ({{ carpetas.paginator.count }})
+        </h2>
+        
+        {% if carpetas %}
+        <ul class="space-y-2">
+            {% for carpeta in carpetas %}
+            <li class="flex items-center p-2 hover:bg-gray-50 rounded transition">
+                <span class="text-gray-500 mr-3 font-mono text-sm">{{ forloop.counter|stringformat:"03d" }}</span>
+                <svg class="w-5 h-5 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
+                </svg>
+                <a href="?path={% if ruta_actual %}{{ ruta_actual }}/{% endif %}{{ carpeta.name }}" class="text-blue-600 font-semibold hover:underline flex-1">
+                    {{ carpeta.name }}
+                </a>
+                <span class="text-xs text-gray-400">
+                    {{ carpeta.size|filesizeformat }}
+                </span>
+            </li>
+            <li class="flex justify-end items-center p-0 m-0 leading-none">
+                <span class="text-[10px] text-gray-400 whitespace-nowrap">
+                    • {{ carpeta.modified|date:"d/m/Y H:i" }}
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        
+        <!-- Paginación para carpetas -->
+        {% if carpetas.has_other_pages %}
+        <div class="mt-4 flex justify-center">
+            <nav class="inline-flex space-x-2">
+                {% if carpetas.has_previous %}
+                <a href="?path={{ ruta_actual }}&page={{ carpetas.previous_page_number }}" 
+                   class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    ← Anterior
+                </a>
+                {% endif %}
+                
+                <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg">
+                    Página {{ carpetas.number }} de {{ carpetas.paginator.num_pages }}
+                </span>
+                
+                {% if carpetas.has_next %}
+                <a href="?path={{ ruta_actual }}&page={{ carpetas.next_page_number }}" 
+                   class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
+                    Siguiente →
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+        {% else %}
+        <p class="text-gray-500 text-center py-8">No hay carpetas en esta ubicación</p>
+        {% endif %}
+    </div>
+    
+    <!-- Botones de navegación -->
+    <div class="flex space-x-2 justify-end mt-4">
+        {% if parent_path is not None %}
+        <a href="?path={{ parent_path }}" 
+           class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition shadow">
+            ← Carpeta Anterior
+        </a>
+        {% endif %}
+        
+        {% if ruta_actual %}
+        <a href="?path=" 
+           class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition shadow">
+            🏠 Ir a Raíz
+        </a>
+        {% endif %}
+    </div>
+</div>

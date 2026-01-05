@@ -1,0 +1,48 @@
+from django.db import models
+
+# Create your models here.
+class infoProveedores(models.Model):
+    id_proveedores = models.AutoField(primary_key=True)
+    nit = models.IntegerField()
+    name = models.CharField(max_length=250)
+    key_geo = models.CharField(max_length=150)
+    departament = models.CharField(max_length=50)
+    city = models.CharField(max_length=50)
+    address = models.CharField(max_length=500)
+    phone = models.CharField(max_length=150)
+    cell = models.CharField(max_length=150)
+    mail = models.CharField(max_length=250)
+    legal_representative = models.CharField(max_length=250)
+    cell_legal_representative = models.CharField(max_length=150)
+    manager = models.CharField(max_length=250)
+    phone_manager = models.CharField(max_length=150)
+    cell_manager = models.CharField(max_length=150)
+    email_manager = models.CharField(max_length=250)
+    agreement_leader = models.CharField(max_length=250)
+    phone_agreement_leader = models.CharField(max_length=150)
+    cell_agreement_leader = models.CharField(max_length=150)
+    mail_agreement_leader = models.CharField(max_length=250)
+    admissions = models.CharField(max_length=250)
+    phone_admissions = models.CharField(max_length=150)
+    cell_admissions = models.CharField(max_length=150)
+    mail_admissions = models.CharField(max_length=250)
+    ref_and_against_ref = models.CharField(max_length=250)
+    phone_ref_and_against_ref = models.CharField(max_length=150)
+    cell_ref_and_against_ref = models.CharField(max_length=150)
+    mail_ref_and_against_ref = models.CharField(max_length=250)
+    appointment_assignment = models.CharField(max_length=250)
+    phone_appointment_assignment = models.CharField(max_length=150)
+    cell_appointment_assignment = models.CharField(max_length=150)
+    mail_appointment_assignment = models.CharField(max_length=250)
+    customer_service = models.CharField(max_length=250)
+    phone_customer_services = models.CharField(max_length=150)
+    cell_customer_services = models.CharField(max_length=150)
+    mail_customer_services = models.CharField(max_length=250)
+    audit_of_medical_accounts = models.CharField(max_length=250)
+    phone_audit_of_medical_accounts = models.CharField(max_length=150)
+    cell_audit_of_medical_accounts = models.CharField(max_length=150)
+    mail_audit_of_medical_accounts = models.CharField(max_length=250)
+
+    class Meta:
+        managed = False
+        db_table = "datos_proveedores"

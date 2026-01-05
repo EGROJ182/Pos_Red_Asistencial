@@ -1,0 +1,26 @@
+<table class="table-auto border-collapse border border-gray-300 text-[14px]">
+    <thead class="text-white font-bold text-sm text-center">
+        <tr>
+            <th class="sticky top-0 left-0 px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">Item</th>
+            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Denominación Común Internacional (DCI)</th>
+            <th class="sticky top-0 left-20 px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">(DCI) Búsqueda</th>
+            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Concentración</th>
+            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[#ff7c00] z-10">Forma Farmacéutica</th>
+            <th class="sticky top-0 px-4 py-2 border border-gray-300 text-left bg-[red] z-10">Nota</th>
+            <th class="sticky top-0 left-[260.5px] px-4 py-2 border border-gray-300 text-left bg-[#0b5494c7] z-20">Código CUM</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mme in mme %}
+        <tr class="bg-white border-b">
+            <td class="sticky left-0 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ forloop.counter }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ mme.dci }}</td>
+            <td class="sticky left-20 z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ mme.dci_busqueda }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ mme.concentracion }}</td>
+            <td class="px-4 py-2 border border-gray-300">{{ mme.forma_farmaceutica }}</td>
+            <td class="px-4 py-2 border font-bold border-gray-300">{{ mme.nota }}</td>
+            <td class="sticky left-[260.5px] z-10 bg-[#cec2c2] px-4 py-2 border border-gray-300">{{ mme.codigo_cum }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

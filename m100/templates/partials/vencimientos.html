@@ -1,0 +1,207 @@
+{% load static %}
+    <h1 class="sticky top-0 z-10 titulo-vencimientos container bg-white w-[90%] justify-center items-center">Alertas de Contratos</h1>
+    {% if vencidos|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="vencidos"> ❌ Contratos Vencidos en la Maestra hoja (Contratos Vigentes)</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for alert in vencidos %}
+                <tr class="tr-vencimientos">
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                    <td>{{ alert.nit }}</td>
+                    <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                    <td class="text-center">{{ alert.message }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if cero|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="hoy">☢ Contratos que finalizan Hoy</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in cero %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if uno|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="manana"> ⚠ Contratos que finalizan mañana</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in uno %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if dos|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="pasado"> 🚧 Contratos que finalizan pasado mañana</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in dos %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if tres|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="semana"> 🌋 Contratos que finalizan esta semana 4 a 7 días</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in tres %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if cuatro|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="otra"> 🔥 Contratos que finalizan la otra semana 8 a 15 días</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in cuatro %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+    {% if cinco|length > 0 %}
+    <div class="table-container-vencimientos container mx-auto my-auto py-2 px-4 shadow-lg rounded-xl space-y-4">
+        <h2 class="mes"> 🆗 Contratos que finalizan de 16 a 30 días</h2>
+        <div class="container mx-auto my-auto py-2 px-4 border-none">
+        <table class="table-vencimientos">
+            <thead>
+                <tr>
+                <th>Item</th>
+                <th>Razón Social</th>
+                <th>NIT</th>
+                <th>Número Contrato</th>
+                <th>Fecha Vencimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alert in cinco %}
+                    <tr class="tr-vencimientos">
+                        <td class="text-center">{{ forloop.counter }}</td>
+                        <td>{{ alert.nombre }} {{ alert.dias_restantes }}</td>
+                        <td>{{ alert.nit }}</td>
+                        <td class="text-center">{{ alert.numero_contrato }}-{{ alert.year_contrato }}</td>
+                        <td class="text-center">{{ alert.message }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+
+<link href='{% static "medicamentos/css/vencimientos.css" %}' rel="stylesheet"/>

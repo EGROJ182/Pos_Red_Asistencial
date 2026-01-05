@@ -1,0 +1,81 @@
+.div-info {
+    border-radius: 0px 0px 20px 20px;
+    background: #e5e8e8;
+}
+
+details {
+    background-color: orange;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    font-weight: bold;
+  }
+
+  details[open] summary {
+    color: black;
+  }
+
+  details summary {
+    cursor: pointer;
+  }
+
+  details .historico {
+    height: 0;
+    overflow: hidden;
+    transition: height 1.5s ease; /* Cambia la duración a 1s para hacerlo más lento */
+  }
+
+.content-btn-historico {
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    align-items: center;
+    justify-items: center;
+    color: white;
+    font-weight: 500;
+    transform: scale(0.9);
+    width: 100%;
+    margin-left: 5%;
+    background: #ff7c00;
+    text-shadow: rgba(0, 0, 0, 0.534) 1px 1px 4px;
+    border-radius: 0px 20px 0px 20px;
+    /* box-shadow: black 1px 1px 2px; */
+    transition: transform 0.3s ease-in-out, color 1.2s ease-in-out, font-weight 0.2s ease-in-out, text-shadow 0.7s ease-in-out, border-radius ;
+}
+
+@media (max-width: 768px) {
+    .content-btn-historico {
+        position: relative;
+        display: grid;
+        justify-content: center;
+    }
+}
+
+.btn-historico {
+    border-left: 7px solid #8700f6;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    font-weight: 500;
+    transform: scale(0.9);
+    width: 350px;
+    background: #ff7c00;
+    text-shadow: rgba(0, 0, 0, 0.534) 1px 1px 4px;
+    transition: transform 0.3s ease-in-out, color 1.2s ease-in-out, background 1s ease-in-out, font-weight 0.2s ease-in-out, text-shadow 0.7s ease-in-out, border-radius 1.2s ease-in-out, border-color 1.2s ease-in-out, border-right 1.2s ease-in-out;
+}
+
+.btn-historico:hover {
+    border-right: 7px solid #8700f6;
+    border-radius: 0px 20px 20px 0px;
+    border-color: white;
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transform: scale(1);
+    background: #8700f6;
+    text-shadow: rgba(0, 0, 0, 0.534) 1px 1px 4px;
+}
