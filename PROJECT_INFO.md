@@ -1,6 +1,6 @@
 ### Documentación Completa
 
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/EGROJ182/Pos_Red_Asistencial)
+Clic aqui ---> [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/EGROJ182/Pos_Red_Asistencial)
 
 
 
